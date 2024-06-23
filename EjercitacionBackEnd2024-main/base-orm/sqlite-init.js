@@ -22,7 +22,7 @@ async function CrearBaseSiNoExiste() {
          );`
       );
       console.log("Tabla Vuelos creada.");
-      
+
       // Insertar datos básicos en la tabla Vuelos
       await db.run(
         `INSERT INTO Vuelos (numero_vuelo, destino, fecha_salida, fecha_llegada)
@@ -44,13 +44,20 @@ async function CrearBaseSiNoExiste() {
          );`
       );
       console.log("Tabla Aeropuertos creada.");
-      
+
       // Insertar datos básicos en la tabla Aeropuertos
       await db.run(
         `INSERT INTO Aeropuertos (nombre, ciudad, pais)
          VALUES ('JFK International Airport', 'New York', 'USA'),
                 ('Charles de Gaulle Airport', 'Paris', 'France'),
-                ('Narita International Airport', 'Tokyo', 'Japan');`
+                ('Narita International Airport', 'Tokyo', 'Japan'),
+                ('Heathrow Airport', 'London', 'United Kingdom'),
+                ('Los Angeles International Airport', 'Los Angeles', 'USA'),
+                ('Haneda Airport', 'Tokyo', 'Japan'),
+                ('Changi Airport', 'Singapore', 'Singapore'),
+                ('Dubai International Airport', 'Dubai', 'United Arab Emirates'),
+                ('Frankfurt Airport', 'Frankfurt', 'Germany'),
+                ('Sydney Airport', 'Sydney', 'Australia');`
       );
       console.log("Datos insertados en la tabla Aeropuertos.");
     }
@@ -66,7 +73,7 @@ async function CrearBaseSiNoExiste() {
          );`
       );
       console.log("Tabla Pasajeros creada.");
-      
+
       // Insertar datos básicos en la tabla Pasajeros
       await db.run(
         `INSERT INTO Pasajeros (nombre, correo_electronico, fecha_nacimiento)
@@ -90,7 +97,7 @@ async function CrearBaseSiNoExiste() {
          );`
       );
       console.log("Tabla Reservas creada.");
-      
+
       // Insertar datos básicos en la tabla Reservas
       await db.run(
         `INSERT INTO Reservas (vuelo_id, pasajero_id, fecha_reserva)
@@ -113,7 +120,7 @@ async function CrearBaseSiNoExiste() {
          );`
       );
       console.log("Tabla Aviones creada.");
-      
+
       // Insertar datos básicos en la tabla Aviones
       await db.run(
         `INSERT INTO Aviones (modelo, capacidad, aerolinea, fecha_fabricacion)
@@ -134,7 +141,7 @@ async function CrearBaseSiNoExiste() {
          );`
       );
       console.log("Tabla Aerolineas creada.");
-      
+
       // Insertar datos básicos en la tabla Aerolineas
       await db.run(
         `INSERT INTO Aerolineas (nombre, pais_origen)
@@ -156,7 +163,7 @@ async function CrearBaseSiNoExiste() {
          );`
       );
       console.log("Tabla Pilotos creada.");
-      
+
       // Insertar datos básicos en la tabla Pilotos
       await db.run(
         `INSERT INTO Pilotos (nombre, licencia, fecha_contratacion)
@@ -178,7 +185,7 @@ async function CrearBaseSiNoExiste() {
          );`
       );
       console.log("Tabla Tripulacion creada.");
-      
+
       // Insertar datos básicos en la tabla Tripulacion
       await db.run(
         `INSERT INTO Tripulacion (nombre, rol, fecha_contratacion)

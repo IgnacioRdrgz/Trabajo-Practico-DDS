@@ -1,7 +1,7 @@
 import httpService from "./http.service";
 import { config } from "../config";
 
-const urlResource = config.urlResourceAerolineas;
+const urlResource = config.urlResourceAeropuertos;
 
 async function BuscarPorNombre(nombre) {
   try {
@@ -12,27 +12,38 @@ async function BuscarPorNombre(nombre) {
   }
 }
 
-async function BuscarPorPais(pais_origen) {
+async function BuscarPorPais(pais) {
   try {
     const response = await httpService.get(urlResource, {
-      params: { pais_origen: pais_origen }, // Utilizar correctamente el parámetro pais_origen
+      params: { pais: pais }, // Utilizar correctamente el parámetro pais
     });
     return response.data;
   } catch (error) {
-    console.error("Error en aerolineasService.BuscarPorPais:", error);
+    console.error("Error en aeropuertosService.BuscarPorPais:", error);
+    throw error;
+  }
+}
+async function BuscarPorCiudad(ciudad) {
+  try {
+    const response = await httpService.get(urlResource, {
+      params: { ciudad: ciudad }, // Utilizar correctamente el parámetro pais
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error en aeropuertosService.BuscarPorPais:", error);
     throw error;
   }
 }
 
 
-async function buscarAerolineasPorNombre(nombre) {
+async function buscarAeropuertosPorNombre(nombre) {
   try {
     const resp = await httpService.get(urlResource, {
       params: { nombre },
     });
     return resp.data;
   } catch (error) {
-    console.error("Error en aerolineasService.buscarAerolineasPorNombre:", error);
+    console.error("Error en aeropuertosService.buscarAeropuertosPorNombre:", error);
     throw error; // Lanzar el error para que sea manejado en el componente React
   }
 }
@@ -44,7 +55,7 @@ async function Buscar(nombre) {
     });
     return resp.data;
   } catch (error) {
-    console.error("Error en aerolineasService.Buscar:", error);
+    console.error("Error en aeropuertosService.Buscar:", error);
     throw error; // Lanzar el error para que sea manejado en el componente React
   }
 }
@@ -66,10 +77,11 @@ async function Grabar(item) {
   }
 }
 
-export const aerolineasService = {
+export const aeropuertosService = {
   BuscarPorNombre,
+  BuscarPorCiudad,
   BuscarPorPais,
-  buscarAerolineasPorNombre,
+  buscarAeropuertosPorNombre,
   Buscar,
   BuscarPorId,
   ActivarDesactivar,

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import AerolineasListado from "./AerolineasListado";
-import AerolineasRegistro from "./AerolineasRegistro";
-import AerolineasBuscar from "./AerolineasBuscar";
-import { aerolineasService } from "../../services/aerolineas.service";
+import AeropuertosListado from "./AeropuertosListado";
+import AeropuertosRegistro from "./AeropuertosRegistro";
+import AeropuertosBuscar from "./AeropuertosBuscar";
+import { aeropuertosService } from "../../services/aeropuertos.service";
 import modalDialogService from "../../services/modalDialog.service";
 
-function Aerolineas() {
+function Aeropuertos() {
   const TituloAccionABMC = {
     A: "(Agregar)",
     B: "(Eliminar)",
@@ -15,7 +15,7 @@ function Aerolineas() {
   };
 
   const [AccionABMC, setAccionABMC] = useState("L");
-  const [pais_origen, setpais_origen] = useState("");
+  const [pais, setpais] = useState("");
   const [Items, setItems] = useState([]);
   const [Item, setItem] = useState(null);
   const [Pagina, setPagina] = useState(1);
@@ -30,8 +30,8 @@ function Aerolineas() {
   async function Buscar(_pagina) {
     modalDialogService.BloquearPantalla(true);
     try {
-      console.log("Buscando aerolíneas con país de origen:", pais_origen);
-      const response = await aerolineasService.BuscarPorPais(pais_origen);
+      console.log("Buscando aerolíneas con país de origen:", pais);
+      const response = await aeropuertosService.BuscarPorPais(pais);
       console.log("Respuesta de búsqueda:", response);
       const { Items, RegistrosTotal, PaginasTotal } = response;
       setItems(Items);
@@ -47,7 +47,7 @@ function Aerolineas() {
   }
 
   async function BuscarPorId(item, accionABMC) {
-    const data = await aerolineasService.BuscarPorId(item);
+    const data = await aeropuertosService.BuscarPorId(item);
     setItem(data);
     setAccionABMC(accionABMC);
   }
@@ -65,26 +65,26 @@ function Aerolineas() {
     setItem({
       id: 0,
       nombre: "",
-      pais_origen: "",
+      ciudad: "",
+      pais: "",
     });
   }
 
   async function ActivarDesactivar(item) {
     modalDialogService.Confirm(
-      `¿Está seguro que quiere ${
-        item.Activo ? "desactivar" : "activar"
+      `¿Está seguro que quiere ${item.Activo ? "desactivar" : "activar"
       } el registro?`,
       undefined,
       undefined,
       undefined,
       async () => {
         try {
-          await aerolineasService.ActivarDesactivar(item);
-          console.log(`${item.Activo ? "Desactivada" : "Activada"} aerolínea:`, item.id);
+          await aeropuertosService.ActivarDesactivar(item);
+          console.log(`${item.Activo ? "Desactivada" : "Activada"} aeropuerto:`, item.id);
           await Buscar(1);
         } catch (error) {
-          console.error("Error al activar/desactivar aerolínea:", error);
-          modalDialogService.Alert("Error al activar/desactivar aerolínea. Por favor, inténtelo nuevamente.");
+          console.error("Error al activar/desactivar aeropuerto:", error);
+          modalDialogService.Alert("Error al activar/desactivar aeropuerto. Por favor, inténtelo nuevamente.");
         }
       }
     );
@@ -92,17 +92,16 @@ function Aerolineas() {
 
   async function Grabar(item) {
     try {
-      await aerolineasService.Grabar(item);
+      await aeropuertosService.Grabar(item);
       console.log(`Registro ${AccionABMC === "A" ? "agregado" : "modificado"} correctamente.`);
       await Buscar(1);
       Volver();
       modalDialogService.Alert(
-        `Registro ${
-          AccionABMC === "A" ? "agregado" : "modificado"
+        `Registro ${AccionABMC === "A" ? "agregado" : "modificado"
         } correctamente.`
       );
     } catch (error) {
-      console.error("Error al grabar aerolínea:", error);
+      console.error("Error al grabar aeropuerto:", error);
       modalDialogService.Alert(
         error?.response?.data?.message ?? error.toString()
       );
@@ -116,20 +115,20 @@ function Aerolineas() {
   return (
     <div>
       <div className="tituloPagina">
-        Aerolíneas <small>{TituloAccionABMC[AccionABMC]}</small>
+        Aeropuertos <small>{TituloAccionABMC[AccionABMC]}</small>
       </div>
 
       {AccionABMC === "L" && (
-      <AerolineasBuscar
-        pais_origen={pais_origen}
-        setpais_origen={setpais_origen}
-        Agregar={Agregar}
-        Buscar={Buscar}
-      />
-    )}
-    
+        <AeropuertosBuscar
+          pais={pais}
+          setpais={setpais}
+          Agregar={Agregar}
+          Buscar={Buscar}
+        />
+      )}
+
       {AccionABMC === "L" && Items.length > 0 && (
-        <AerolineasListado
+        <AeropuertosListado
           Items={Items}
           Consultar={Consultar}
           Modificar={Modificar}
@@ -146,7 +145,7 @@ function Aerolineas() {
       )}
 
       {AccionABMC !== "L" && (
-        <AerolineasRegistro
+        <AeropuertosRegistro
           AccionABMC={AccionABMC}
           Item={Item}
           Grabar={Grabar}
@@ -175,4 +174,4 @@ function Aerolineas() {
   );
 }
 
-export { Aerolineas };
+export { Aeropuertos };

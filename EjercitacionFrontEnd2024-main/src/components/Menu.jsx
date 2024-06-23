@@ -48,6 +48,11 @@ function Menu() {
               </NavLink>
             </li>
             <li className="nav-item">
+              <NavLink className="nav-link" to="/aeropuertos">
+                Aeropuertos
+              </NavLink>
+            </li>
+            <li className="nav-item">
               <NavLink className="nav-link" to="/aviones">
                 Aviones
               </NavLink>
