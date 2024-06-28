@@ -5,13 +5,28 @@ const router = express.Router();
 const db = require("../base-orm/sequelize-init");
 const { Op, ValidationError } = require("sequelize");
 
-// GET: Obtener toda la tripulación
+// GET: Obtener toda la tripulación con paginación y/o filtro por rol
 router.get("/api/tripulacion", async (req, res) => {
   try {
-    const tripulacion = await db.Tripulacion.findAll({
+    const Pagina = req.query.Pagina ? parseInt(req.query.Pagina, 10) : 1;
+    const TamañoPagina = 10;
+
+    // Construye la consulta para obtener la tripulación de forma paginada
+    const whereClause = {};
+    if (req.query.nombre) {
+      whereClause.nombre = { [Op.like]: `%${req.query.nombre}%` };
+    }
+
+    const { count, rows } = await db.Tripulacion.findAndCountAll({
       attributes: ["id", "nombre", "rol", "fecha_contratacion"],
+      where: whereClause, // Aplica el filtro por rol si se proporciona
+      order: [["nombre", "ASC"]],
+      offset: (Pagina - 1) * TamañoPagina,
+      limit: TamañoPagina,
     });
-    res.json(tripulacion);
+
+    // Envía la respuesta con los datos paginados y el total de registros
+    res.json({ Items: rows, RegistrosTotal: count });
   } catch (error) {
     console.error("Error al obtener la tripulación:", error);
     res.status(500).json({ message: "Error interno del servidor" });
