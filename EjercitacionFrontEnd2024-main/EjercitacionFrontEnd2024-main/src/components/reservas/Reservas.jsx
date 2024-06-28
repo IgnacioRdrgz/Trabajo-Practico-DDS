@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import PasajerosBuscar from "./PasajerosBuscar";
-import PasajerosListado from "./PasajerosListado";
-import PasajerosRegistro from "./PasajerosRegistro";
-import { pasajerosService } from "../../services/pasajeros.service";
+import moment from "moment";
+import ReservasBuscar from "./ReservasBuscar";
+import ReservasListado from "./ReservasListado";
+import ReservasRegistro from "./ReservasRegistro";
+import { reservasService } from "../../services/reservas.service";
 import modalDialogService from "../../services/modalDialog.service";
 
-function Pasajeros() {
+function Reservas() {
   const TituloAccionABMC = {
     A: "(Agregar)",
     B: "(Eliminar)",
@@ -15,31 +16,25 @@ function Pasajeros() {
   };
   const [AccionABMC, setAccionABMC] = useState("L");
 
-  const [Nombre, setNombre] = useState("");
-
   const [Items, setItems] = useState(null);
   const [Item, setItem] = useState(null); // usado en BuscarporId (Modificar, Consultar)
   const [RegistrosTotal, setRegistrosTotal] = useState(0);
   const [Pagina, setPagina] = useState(1);
   const [Paginas, setPaginas] = useState([]);
 
-  // Buscar pasajeros al montar el componente
+  // cargar al "montar" el componente, solo la primera vez (por la dependencia [])
   useEffect(() => {
-    Buscar(1); // Llama a la función Buscar con la página inicial 1
+    Buscar();
   }, []);
 
-  async function Buscar(_pagina) {
-    if (_pagina && _pagina !== Pagina) {
-      setPagina(_pagina);
-    } else {
-      _pagina = Pagina;
-    }
+  async function Buscar(_pagina = Pagina) {
     modalDialogService.BloquearPantalla(true);
-    const data = await pasajerosService.Buscar(Nombre, _pagina);
+    const data = await reservasService.Buscar(_pagina);
     modalDialogService.BloquearPantalla(false);
     setItems(data.Items);
     setRegistrosTotal(data.RegistrosTotal);
 
+    //generar array de las páginas para mostrar en select del paginador
     const arrPaginas = [];
     for (let i = 1; i <= Math.ceil(data.RegistrosTotal / 10); i++) {
       arrPaginas.push(i);
@@ -48,47 +43,39 @@ function Pasajeros() {
   }
 
   async function BuscarPorId(item, accionABMC) {
-    const data = await pasajerosService.BuscarPorId(item);
+    const data = await reservasService.BuscarPorId(item);
     setItem(data);
     setAccionABMC(accionABMC);
-  }
-
-  function Consultar(item) {
-    BuscarPorId(item, "C");
-  }
-
-  function Modificar(item) {
-    BuscarPorId(item, "M");
   }
 
   async function Agregar() {
     setAccionABMC("A");
     setItem({
       id: 0,
-      nombre: '',
-      fecha_nacimiento: '',
-      correo_electronico: '',
+      vuelo_id: '',
+      pasajero_id: '',
+      fecha_reserva: moment(new Date()).format("YYYY-MM-DD"),
     });
-  }
-
-  function Imprimir() {
-    modalDialogService.Alert("En desarrollo...");
   }
 
   async function Grabar(item) {
     try {
-      await pasajerosService.Grabar(item);
+      await reservasService.Grabar(item);
     } catch (error) {
-      modalDialogService.Alert(error?.response?.data?.message ?? error.toString());
+      modalDialogService.Alert(error?.response?.data?.message ?? error.toString())
       return;
     }
     await Buscar();
     Volver();
+
     modalDialogService.Alert(
-      "Registro " + (AccionABMC === "A" ? "agregado" : "modificado") + " correctamente."
+      "Reserva " +
+      (AccionABMC === "A" ? "agregada" : "modificada") +
+      " correctamente."
     );
   }
 
+  // Volver/Cancelar desde Agregar/Modificar/Consultar
   function Volver() {
     setAccionABMC("L");
   }
@@ -96,25 +83,22 @@ function Pasajeros() {
   return (
     <div>
       <div className="tituloPagina">
-        Pasajeros <small>{TituloAccionABMC[AccionABMC]}</small>
+        Reservas <small>{TituloAccionABMC[AccionABMC]}</small>
       </div>
 
       {AccionABMC === "L" && (
-        <PasajerosBuscar
-          Nombre={Nombre}
-          setNombre={setNombre}
+        <ReservasBuscar
           Buscar={Buscar}
           Agregar={Agregar}
         />
       )}
 
+      {/* Tabla de resultados de búsqueda y Paginador */}
       {AccionABMC === "L" && Items?.length > 0 && (
-        <PasajerosListado
+        <ReservasListado
           {...{
             Items,
-            Consultar,
-            Modificar,
-            Imprimir,
+            BuscarPorId,
             Pagina,
             RegistrosTotal,
             Paginas,
@@ -130,13 +114,13 @@ function Pasajeros() {
         </div>
       )}
 
+      {/* Formulario de alta/modificación/consulta */}
       {AccionABMC !== "L" && (
-        <PasajerosRegistro
+        <ReservasRegistro
           {...{ AccionABMC, Item, Grabar, Volver }}
         />
       )}
     </div>
   );
 }
-
-export { Pasajeros };
+export { Reservas };

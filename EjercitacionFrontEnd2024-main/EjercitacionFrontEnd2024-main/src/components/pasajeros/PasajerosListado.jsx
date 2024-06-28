@@ -5,7 +5,6 @@ export default function PasajerosListado({
   Items,
   Consultar,
   Modificar,
-  ActivarDesactivar,
   Imprimir,
   Pagina,
   RegistrosTotal,
@@ -17,11 +16,9 @@ export default function PasajerosListado({
       <table className="table table-hover table-sm table-bordered table-striped">
         <thead>
           <tr>
-            <th className="text-center">nombre</th>
-            
-            <th className="text-center">correo_electronico</th>
-            <th className="text-center">fecha_nacimiento</th>
-            <th className="text-center">Activo</th>
+            <th className="text-center">Nombre</th>
+            <th className="text-center">Correo Electrónico</th>
+            <th className="text-center">Fecha de Nacimiento</th>
             <th className="text-center text-nowrap">Acciones</th>
           </tr>
         </thead>
@@ -30,12 +27,10 @@ export default function PasajerosListado({
             Items.map((Item) => (
               <tr key={Item.id}>
                 <td>{Item.nombre}</td>
-                
-                <td className="text-end">{Item.correo_electronico}</td>
+                <td>{Item.correo_electronico}</td>
                 <td className="text-end">
-                  {moment(Item.FechaAlta).format("DD/MM/YYYY")}
+                  {moment(Item.fecha_nacimiento).format("DD/MM/YYYY")}
                 </td>
-                <td>{Item.Activo ? "SI" : "NO"}</td>
                 <td className="text-center text-nowrap">
                   <button
                     className="btn btn-sm btn-outline-primary"
@@ -51,20 +46,6 @@ export default function PasajerosListado({
                   >
                     <i className="fa fa-pencil"></i>
                   </button>
-                  <button
-                    className={
-                      "btn btn-sm " +
-                      (Item.Activo
-                        ? "btn-outline-danger"
-                        : "btn-outline-success")
-                    }
-                    title={Item.Activo ? "Desactivar" : "Activar"}
-                    onClick={() => ActivarDesactivar(Item)}
-                  >
-                    <i
-                      className={"fa fa-" + (Item.Activo ? "times" : "check")}
-                    ></i>
-                  </button>
                 </td>
               </tr>
             ))}
@@ -78,7 +59,7 @@ export default function PasajerosListado({
             <span className="pyBadge">Registros: {RegistrosTotal}</span>
           </div>
           <div className="col text-center">
-            Pagina: &nbsp;
+            Página: &nbsp;
             <select
               value={Pagina}
               onChange={(e) => {
@@ -96,7 +77,7 @@ export default function PasajerosListado({
 
           <div className="col">
             <button className="btn btn-primary float-end" onClick={() => Imprimir()}>
-              <i className="fa fa-print"></i>Imprimir
+              <i className="fa fa-print"></i> Imprimir
             </button>
           </div>
         </div>

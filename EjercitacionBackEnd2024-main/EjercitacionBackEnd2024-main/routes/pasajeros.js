@@ -1,4 +1,4 @@
-// pasajeros.js
+//pasajeros.js
 
 const express = require("express");
 const router = express.Router();
@@ -8,8 +8,8 @@ const { Op, ValidationError } = require("sequelize");
 // GET: Obtener todos los pasajeros
 router.get("/api/pasajeros", async (req, res) => {
   try {
-    const pasajeros = await db.Pasajero.findAll({
-      attributes: ["id", "nombre", "correo_electronico", "fecha_nacimiento","Activo"],
+    const pasajeros = await db.Pasajeros.findAll({
+      attributes: ["id", "nombre", "correo_electronico", "fecha_nacimiento"],
     });
     res.json(pasajeros);
   } catch (error) {
@@ -21,8 +21,8 @@ router.get("/api/pasajeros", async (req, res) => {
 // GET: Obtener un pasajero por su ID
 router.get("/api/pasajeros/:id", async (req, res) => {
   try {
-    const pasajero = await db.Pasajero.findOne({
-      attributes: ["id", "nombre", "correo_electronico", "fecha_nacimiento", "Activo"],
+    const pasajero = await db.Pasajeros.findOne({
+      attributes: ["id", "nombre", "correo_electronico", "fecha_nacimiento"],
       where: { id: req.params.id },
     });
     if (!pasajero) {
@@ -38,11 +38,10 @@ router.get("/api/pasajeros/:id", async (req, res) => {
 // POST: Agregar un nuevo pasajero
 router.post("/api/pasajeros", async (req, res) => {
   try {
-    const nuevoPasajero = await db.Pasajero.create({
+    const nuevoPasajero = await db.Pasajeros.create({
       nombre: req.body.nombre,
       correo_electronico: req.body.correo_electronico,
       fecha_nacimiento: req.body.fecha_nacimiento,
-      Activo: req.body.Activo,
     });
     res.status(200).json(nuevoPasajero);
   } catch (err) {
@@ -60,7 +59,7 @@ router.post("/api/pasajeros", async (req, res) => {
 // PUT: Actualizar un pasajero por su ID
 router.put("/api/pasajeros/:id", async (req, res) => {
   try {
-    const pasajero = await db.Pasajero.findOne({
+    const pasajero = await db.Pasajeros.findOne({
       where: { id: req.params.id },
     });
     if (!pasajero) {
@@ -69,7 +68,6 @@ router.put("/api/pasajeros/:id", async (req, res) => {
     pasajero.nombre = req.body.nombre;
     pasajero.correo_electronico = req.body.correo_electronico;
     pasajero.fecha_nacimiento = req.body.fecha_nacimiento;
-    pasajero.Activo = req.body.Activo;
     await pasajero.save();
     res.sendStatus(204);
   } catch (err) {
@@ -87,11 +85,11 @@ router.put("/api/pasajeros/:id", async (req, res) => {
 // DELETE: Eliminar un pasajero por su ID
 router.delete("/api/pasajeros/:id", async (req, res) => {
   try {
-    const filasBorradas = await db.Pasajero.destroy({
+    const filasBorradas = await db.Pasajeros.destroy({
       where: { id: req.params.id },
     });
     if (filasBorradas == 1) {
-      res.sendStatus(200);
+      res.status(200).json({ message: "Pasajero eliminado" });
     } else {
       res.sendStatus(404);
     }

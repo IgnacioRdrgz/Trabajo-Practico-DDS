@@ -62,7 +62,7 @@ async function CrearBaseSiNoExiste() {
            id INTEGER PRIMARY KEY AUTOINCREMENT,
            nombre TEXT NOT NULL,
            correo_electronico TEXT NOT NULL,
-           fecha_nacimiento TEXT
+           fecha_nacimiento TEXT,
          );`
       );
       console.log("Tabla Pasajeros creada.");

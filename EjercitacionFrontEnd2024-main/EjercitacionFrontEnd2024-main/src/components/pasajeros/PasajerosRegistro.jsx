@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 export default function PasajerosRegistro({
@@ -7,7 +7,6 @@ export default function PasajerosRegistro({
   Grabar,
   Volver,
 }) {
-  if (!Item) return null;
   const {
     register,
     handleSubmit,
@@ -22,31 +21,30 @@ export default function PasajerosRegistro({
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="container-fluid">
         <fieldset disabled={AccionABMC === "C"}>
-          {/* campo nombre */}
+
+          {/* Campo nombre */}
           <div className="row">
             <div className="col-sm-4 col-md-3 offset-md-1">
-              <label className="col-form-label" htmlFor="nombre">
-                nombre<span className="text-danger">*</span>:
+              <label className="col-form-label" htmlFor="Nombre">
+                Nombre<span className="text-danger">*</span>:
               </label>
             </div>
             <div className="col-sm-8 col-md-6">
               <input
                 type="text"
                 {...register("nombre", {
-                  required: { value: true, message: "nombre es requerido" },
+                  required: { value: true, message: "Nombre es requerido" },
                   minLength: {
                     value: 4,
-                    message: "nombre debe tener al menos 4 caracteres",
+                    message: "Nombre debe tener al menos 4 caracteres",
                   },
                   maxLength: {
                     value: 55,
-                    message: "nombre debe tener como máximo 55 caracteres",
+                    message: "Nombre debe tener como máximo 55 caracteres",
                   },
                 })}
                 autoFocus
-                className={
-                  "form-control " + (errors?.nombre ? "is-invalid" : "")
-                }
+                className={"form-control " + (errors?.nombre ? "is-invalid" : "")}
               />
               {errors?.nombre && touchedFields.nombre && (
                 <div className="invalid-feedback">
@@ -56,47 +54,51 @@ export default function PasajerosRegistro({
             </div>
           </div>
 
-          {/* campo correo_electronico */}
+          {/* Campo correo electrónico */}
           <div className="row">
             <div className="col-sm-4 col-md-3 offset-md-1">
-              <label className="col-form-label" htmlFor="correo_electronico">
-                correo_electronico<span className="text-danger">*</span>:
+              <label className="col-form-label" htmlFor="CorreoElectronico">
+                Correo Electrónico<span className="text-danger">*</span>:
               </label>
             </div>
             <div className="col-sm-8 col-md-6">
               <input
                 type="email"
                 {...register("correo_electronico", {
-                  required: { value: true, message: "El correo electrónico es requerido" },
+                  required: {
+                    value: true,
+                    message: "Correo Electrónico es requerido",
+                  },
                   pattern: {
                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "El formato del correo electrónico no es válido",
+                    message: "Correo Electrónico no es válido",
                   },
                 })}
-                className={
-                  "form-control " + (errors?.correo_electronico ? "is-invalid" : "")
-                }
+                className={"form-control " + (errors?.correo_electronico ? "is-invalid" : "")}
               />
-              <div className="invalid-feedback">{errors?.correo_electronico?.message}</div>
+              <div className="invalid-feedback">
+                {errors?.correo_electronico?.message}
+              </div>
             </div>
           </div>
 
-          {/* campo fecha_nacimiento */}
+          {/* Campo fecha de nacimiento */}
           <div className="row">
             <div className="col-sm-4 col-md-3 offset-md-1">
-              <label className="col-form-label" htmlFor="fecha_nacimiento">
-                fecha_nacimiento<span className="text-danger">*</span>:
+              <label className="col-form-label" htmlFor="FechaNacimiento">
+                Fecha de Nacimiento<span className="text-danger">*</span>:
               </label>
             </div>
             <div className="col-sm-8 col-md-6">
               <input
                 type="date"
                 {...register("fecha_nacimiento", {
-                  required: { value: true, message: "Fecha Alta es requerido" }
+                  required: {
+                    value: true,
+                    message: "Fecha de Nacimiento es requerido",
+                  },
                 })}
-                className={
-                  "form-control " + (errors?.fecha_nacimiento ? "is-invalid" : "")
-                }
+                className={"form-control " + (errors?.fecha_nacimiento ? "is-invalid" : "")}
               />
               <div className="invalid-feedback">
                 {errors?.fecha_nacimiento?.message}
@@ -104,24 +106,6 @@ export default function PasajerosRegistro({
             </div>
           </div>
 
-          {/* campo Activo */}
-          <div className="row">
-            <div className="col-sm-4 col-md-3 offset-md-1">
-              <label className="col-form-label" htmlFor="Activo">
-                Activo<span className="text-danger">*</span>:
-              </label>
-            </div>
-            <div className="col-sm-8 col-md-6">
-              <select
-                {...register("Activo")}
-                className="form-control"
-              >
-                <option value="">Seleccione...</option>
-                <option value="false">NO</option>
-                <option value="true">SI</option>
-              </select>
-            </div>
-          </div>
         </fieldset>
 
         {/* Botones Grabar, Cancelar/Volver */}
@@ -144,13 +128,14 @@ export default function PasajerosRegistro({
           </div>
         </div>
 
-        {/* texto: Revisar los datos ingresados... */}
+        {/* Mensaje de validación */}
         {!isValid && isSubmitted && (
           <div className="row alert alert-danger mensajesAlert">
             <i className="fa fa-exclamation-sign"></i>
             Revisar los datos ingresados...
           </div>
         )}
+
       </div>
     </form>
   );

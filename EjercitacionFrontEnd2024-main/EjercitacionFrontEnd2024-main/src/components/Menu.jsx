@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import AuthService from "../services/auth.service";
-import MiComponente from "./MiComponente"; // Importa MiComponente aquí
+//import MiComponente from "./MiComponente"; // Importa MiComponente aquí
 
 function Menu() {
   const [usuarioLogueado, setUsuarioLogueado] = useState(
@@ -62,6 +62,14 @@ function Menu() {
                 Pasajeros
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/reservas">
+              Reservas
+              </NavLink>
+            </li>
+
+
+
 
             <li className="nav-item">
               <NavLink className="nav-link" to="/mi-componente">

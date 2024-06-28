@@ -50,7 +50,7 @@ const Aeropuerto = sequelize.define("aeropuertos", {
   timestamps: false // Deshabilitar timestamps
 });
 
-const Pasajero = sequelize.define("pasajeros", {
+const Pasajeros = sequelize.define("Pasajeros", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -75,6 +75,8 @@ const Pasajero = sequelize.define("pasajeros", {
     type: DataTypes.DATEONLY,
     allowNull: false,
   },
+ 
+
 }, {
   timestamps: false // Deshabilitar timestamps
 });
@@ -189,7 +191,7 @@ Vuelo.belongsTo(Aeropuerto, { as: 'aeropuerto_salida', foreignKey: 'aeropuerto_s
 Vuelo.belongsTo(Aeropuerto, { as: 'aeropuerto_llegada', foreignKey: 'aeropuerto_llegada_id' });
 
 Reserva.belongsTo(Vuelo); // Una reserva pertenece a un vuelo
-Reserva.belongsTo(Pasajero); // Una reserva pertenece a un pasajero
+Reserva.belongsTo(Pasajeros); // Una reserva pertenece a un pasajero
 
 Tripulacion.belongsTo(Vuelo); // La tripulación trabaja en un vuelo
 Piloto.belongsTo(Avion); // El piloto vuela un avión
@@ -200,7 +202,7 @@ module.exports = {
   sequelize,
   Vuelo,
   Aeropuerto,
-  Pasajero,
+  Pasajeros,
   Reserva,
   Avion,
   Aerolinea,
