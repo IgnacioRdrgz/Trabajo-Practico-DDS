@@ -4,8 +4,7 @@ import httpService from "./http.service";
 
 // mas adelante podemos usar un archivo de configuracion para el urlResource
  import { config } from "../config";
- const urlResource = config.urlResourceTripulacion;
- const urlResourcePilotos = config.urlResourcePiloto;// Ejemplo de URL de recursos para pilotos
+ const urlResource = config.urlResourcePiloto;
 
   async function BuscarPorNombre(nombre) {
     try {
@@ -14,24 +13,18 @@ import httpService from "./http.service";
       });
       return response.data;
     } catch (error) {
-      console.error("Error en tripulacionService.BuscarPorPais:", error);
+      console.error("Error en pilotosService.BuscarPorPais:", error);
       throw error;
     }
   }
 
 
-  
-async function Buscar(nombre) {
-  try {
+  async function Buscar(nombre, Pagina) {
     const resp = await httpService.get(urlResource, {
-      params: { nombre },
+      params: { nombre, Pagina },
     });
     return resp.data;
-  } catch (error) {
-    console.error("Error en tripulacionService.Buscar:", error);
-    throw error; // Lanzar el error para que sea manejado en el componente React
   }
-}
 
 async function BuscarPorId(item) {
   const resp = await httpService.get(urlResource + "/" + item.id);
@@ -50,23 +43,12 @@ async function Grabar(item) {
   }
 }
 
-async function ObtenerPilotos() {
-  try {
-    const resp = await httpService.get(urlResourcePilotos);
-    return resp.data; // Retorna los datos obtenidos en la respuesta (lista de pilotos)
-  } catch (error) {
-    console.error('Error al obtener pilotos:', error);
-    throw error; // Propaga el error para manejarlo en el componente que llama a esta función
-  }
-}
-
-export const tripulacionService = {
+export const pilotosService = {
   BuscarPorNombre,
   Buscar,
   BuscarPorId,
   ActivarDesactivar,
   Grabar,
-  ObtenerPilotos,
 };
 
 

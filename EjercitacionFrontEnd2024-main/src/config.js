@@ -10,10 +10,13 @@ const urlServidor = "http://localhost:4000"
 const urlResourceAviones = urlServidor + "/api/aviones";
 const urlResourceAerolineas = urlServidor + "/api/aerolineas";
 const urlResourceTripulacion = urlServidor + "/api/tripulacion"
+const urlResourcePiloto = urlServidor + "/api/pilotos"
+
 
 export const config = {
     urlServidor,
     urlResourceAviones,
     urlResourceAerolineas,
     urlResourceTripulacion,
+    urlResourcePiloto,
 }

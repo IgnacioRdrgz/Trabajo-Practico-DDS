@@ -66,6 +66,11 @@ function Menu() {
                 Tripulaciones
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/pilotos">
+                Aviones
+              </NavLink>
+            </li>
           </ul>
 
           <ul className="navbar-nav ms-auto">

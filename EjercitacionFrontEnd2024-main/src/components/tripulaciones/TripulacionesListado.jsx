@@ -20,6 +20,8 @@ export default function TripulacionesListado({
             <th className="text-center">Nombre</th>
             <th className="text-center">rol</th>
             <th className="text-center">Fecha de contratacion</th>
+            <th className="text-center">Id piloto</th>
+
             <th className="text-center text-nowrap">Acciones</th>
           </tr>
         </thead>
@@ -32,6 +34,8 @@ export default function TripulacionesListado({
                 <td className="text-end">
                   {moment(Item.fecha_contratacion).format("DD/MM/YYYY")}
                 </td>
+                <td className="text-end">{Item.idPiloto}</td>
+
                 <td className="text-center text-nowrap">
                   <button
                     className="btn btn-sm btn-outline-primary"

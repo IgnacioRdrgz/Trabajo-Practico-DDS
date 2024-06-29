@@ -21,16 +21,17 @@ function Tripulaciones() {
   const [Pagina, setPagina] = useState(1);
   const [PaginasTotal, setPaginasTotal] = useState(0);
   const [RegistrosTotal, setRegistrosTotal] = useState(0);
+  const [pilotos, setPilotos] = useState([]);
 
   useEffect(() => {
+    cargarPilotos();
     console.log("Ejecutando useEffect con Pagina:", Pagina);
     Buscar(1);
   }, [Pagina]);
-
   async function Buscar(_pagina) {
     modalDialogService.BloquearPantalla(true);
     try {
-      console.log("Buscando aerolíneas con país de origen:", nombre);
+      console.log("Buscando tripulaicon con país de origen:", nombre);
       const response = await tripulacionService.BuscarPorNombre(nombre);
       console.log("Respuesta de búsqueda:", response);
       const { Items, RegistrosTotal, PaginasTotal } = response;
@@ -45,12 +46,20 @@ function Tripulaciones() {
       modalDialogService.BloquearPantalla(false);
     }
   }
-
+  async function cargarPilotos() {
+    try {
+      const response = await tripulacionService.ObtenerPilotos();
+      setPilotos(response.Items);
+    } catch (error) {
+      console.error("Error al cargar pilotos:", error);
+    }
+  }
   async function BuscarPorId(item, accionABMC) {
     const data = await tripulacionService.BuscarPorId(item);
     setItem(data);
     setAccionABMC(accionABMC);
   }
+
 
   function Consultar(item) {
     BuscarPorId(item, "C");
@@ -67,6 +76,7 @@ function Tripulaciones() {
       nombre: "",
       rol: "",
       fecha_contratacion:"",
+      idPiloto:0,
     });
   }
 
@@ -84,8 +94,8 @@ function Tripulaciones() {
           console.log(`${item.Activo ? "Desactivada" : "Activada"} aerolínea:`, item.id);
           await Buscar(1);
         } catch (error) {
-          console.error("Error al activar/desactivar aerolínea:", error);
-          modalDialogService.Alert("Error al activar/desactivar aerolínea. Por favor, inténtelo nuevamente.");
+          console.error("Error al activar/desactivar tripulacion:", error);
+          modalDialogService.Alert("Error al activar/desactivar tripulacion. Por favor, inténtelo nuevamente.");
         }
       }
     );
@@ -152,6 +162,7 @@ function Tripulaciones() {
           Item={Item}
           Grabar={Grabar}
           Volver={Volver}
+          pilotos = {pilotos}
         />
       )}
 
