@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import AuthService from "../services/auth.service";
-import MiComponente from "./MiComponente"; // Importa MiComponente aquí
 
 function Menu() {
   const [usuarioLogueado, setUsuarioLogueado] = useState(
@@ -37,14 +36,21 @@ function Menu() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div
-          className="collapse navbar-collapse"
-          id="navbarSupportedContent"
-        >
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
               <NavLink className="nav-link" to="/inicio">
                 Inicio
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/pasajeros">
+                Pasajeros
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/reservas">
+                Reservas
               </NavLink>
             </li>
             <li className="nav-item">

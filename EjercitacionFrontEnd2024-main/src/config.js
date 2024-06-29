@@ -8,9 +8,12 @@ const urlServidor = "http://localhost:4000"
 
 const urlResourceAviones = urlServidor + "/api/aviones";
 const urlResourceAerolineas = urlServidor + "/api/aerolineas";
-
+const urlResourcePasajeros = urlServidor + "/api/pasajeros";
+const urlResourceReservas = urlServidor + "/api/reservas";
 export const config = {
     urlServidor,
     urlResourceAviones,
     urlResourceAerolineas,
+    urlResourcePasajeros,
+    urlResourceReservas,
 }
