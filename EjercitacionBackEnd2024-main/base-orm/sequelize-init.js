@@ -176,6 +176,10 @@ const Tripulacion = sequelize.define('Tripulacion', {
   fecha_contratacion: {
     type: DataTypes.DATE,
     allowNull: false
+  },
+  idPiloto: {
+    type: DataTypes.INTEGER,
+    allowNull:false,
   }
 }, {
   tableName: 'tripulacion', // Nombre exacto de la tabla en tu base de datos
@@ -190,8 +194,6 @@ Vuelo.belongsTo(Aeropuerto, { as: 'aeropuerto_llegada', foreignKey: 'aeropuerto_
 
 Reserva.belongsTo(Vuelo); // Una reserva pertenece a un vuelo
 Reserva.belongsTo(Pasajero); // Una reserva pertenece a un pasajero
-
-Piloto.belongsTo(Avion); // El piloto vuela un avión
 // (Código de relaciones omitido por brevedad)
 
 // Exportar modelos y sequelize
