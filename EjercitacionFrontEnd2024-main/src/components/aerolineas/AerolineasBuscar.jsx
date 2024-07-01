@@ -30,6 +30,7 @@ export default function AerolineasBuscar({ pais_origen, setpais_origen, Buscar, 
           >
             <i className="fa fa-search"> </i> Buscar
           </button>
+          {/*
           <button
             type="button"
             className="btn btn-primary"
@@ -37,6 +38,7 @@ export default function AerolineasBuscar({ pais_origen, setpais_origen, Buscar, 
           >
             <i className="fa fa-plus"> </i> Agregar
           </button>
+  */}
         </div>
       </div>
     </form>
