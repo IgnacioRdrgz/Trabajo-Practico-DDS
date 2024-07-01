@@ -105,12 +105,13 @@ router.delete("/api/aviones/:id", async (req, res) => {
     if (filasBorradas == 1) {
       res.sendStatus(200);
     } else {
-      res.sendStatus(404);
+      res.status(404).json({ message: "Avión no encontrado" }); // Devuelve el mensaje JSON cuando no se encuentra el avión
     }
   } catch (err) {
     console.error("Error al eliminar el avión:", err);
     res.status(500).json({ message: "Error interno del servidor" });
   }
 });
+
 
 module.exports = router;

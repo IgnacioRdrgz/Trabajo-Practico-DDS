@@ -102,7 +102,7 @@ router.delete("/api/aerolineas/:id", async (req, res) => {
     if (filasBorradas == 1) {
       res.sendStatus(200);
     } else {
-      res.sendStatus(404);
+      res.status(404).json({ message: "Aerolínea no encontrada" }); // Devuelve el mensaje JSON cuando no se encuentra el avión
     }
   } catch (err) {
     console.error("Error al eliminar la aerolínea:", err);
