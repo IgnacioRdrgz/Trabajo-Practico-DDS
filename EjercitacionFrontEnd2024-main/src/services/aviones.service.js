@@ -4,13 +4,24 @@ import { config } from "../config";
 const urlResourceAviones = config.urlResourceAviones;
 const urlResourceAerolineas = config.urlResourceAerolineas; // URL de la API para obtener aerolíneas
 
-async function Buscar(modelo, Pagina) {
-  const resp = await httpService.get(urlResourceAviones, {
-    params: { modelo, Pagina },
-  });
-  return resp.data;
-}
+//async function Buscar(modelo, Pagina) {
+//  const resp = await httpService.get(urlResourceAviones, {
+//    params: { modelo, Pagina },
+//  });
+//  return resp.data;
+//}
 
+async function Buscar(modelo) {
+  try {
+    const response = await httpService.get(urlResourceAviones, {
+      params: { modelo: modelo }, // Utilizar correctamente el parámetro pais_origen
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error en avionesService.Buscar:", error);
+    throw error;
+  }
+}
 async function BuscarPorId(item) {
   const resp = await httpService.get(urlResourceAviones + "/" + item.id);
   return resp.data;
