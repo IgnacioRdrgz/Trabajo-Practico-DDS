@@ -5,26 +5,30 @@ const router = express.Router();
 const db = require("../base-orm/sequelize-init");
 const { Op, ValidationError } = require("sequelize");
 
-// GET: Obtener todos los aviones filtrados por modelo
+// GET: Obtener todas las aerolíneas con paginación y/o filtro por país de origen
 router.get("/api/aviones", async (req, res) => {
   try {
-    const { modelo } = req.query;
+    const Pagina = req.query.Pagina ? parseInt(req.query.Pagina, 10) : 1;
+    const TamañoPagina = 10;
 
-    let whereClause = {};
-    if (modelo) {
-      whereClause.modelo = {
-        [Op.like]: `%${modelo}%` // Búsqueda por modelo que contenga el texto proporcionado
-      };
+    // Construye la consulta para obtener las aerolíneas de forma paginada
+    const whereClause = {};
+    if (req.query.modelo) {
+      whereClause.modelo = { [Op.like]: `%${req.query.modelo}%` };
     }
 
-    const aviones = await db.Avion.findAll({
+    const { count, rows } = await db.Avion.findAndCountAll({
       attributes: ["id", "modelo", "capacidad", "aerolinea", "fecha_fabricacion"],
-      where: whereClause
+      where: whereClause, // Aplica el filtro por país de origen si se proporciona
+      order: [["modelo", "ASC"]],
+      offset: (Pagina - 1) * TamañoPagina,
+      limit: TamañoPagina,
     });
-    
-    res.json(aviones);
+
+    // Envía la respuesta con los datos paginados y el total de registros
+    res.json({ Items: rows, RegistrosTotal: count });
   } catch (error) {
-    console.error("Error al obtener los aviones:", error);
+    console.error("Error al obtener las aviones:", error);
     res.status(500).json({ message: "Error interno del servidor" });
   }
 });
