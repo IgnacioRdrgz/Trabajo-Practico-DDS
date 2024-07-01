@@ -8,8 +8,7 @@ const { Op, ValidationError } = require("sequelize");
 // GET: Obtener todas las aerolíneas con paginación y/o filtro por país de origen
 router.get("/api/aerolineas", async (req, res) => {
   try {
-    const Pagina = req.query.Pagina ? parseInt(req.query.Pagina, 10) : 1;
-    const TamañoPagina = 10;
+
 
     // Construye la consulta para obtener las aerolíneas de forma paginada
     const whereClause = {};
@@ -21,8 +20,7 @@ router.get("/api/aerolineas", async (req, res) => {
       attributes: ["id", "nombre", "pais_origen"],
       where: whereClause, // Aplica el filtro por país de origen si se proporciona
       order: [["nombre", "ASC"]],
-      offset: (Pagina - 1) * TamañoPagina,
-      limit: TamañoPagina,
+
     });
 
     // Envía la respuesta con los datos paginados y el total de registros

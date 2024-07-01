@@ -182,6 +182,10 @@ function Aviones() {
           setAerolineaSeleccionada={setAerolineaSeleccionada}
         />
       )}
+
+
+          {/* Mostrar total de registros */}
+          <div className="mt-3">Total de registros: {RegistrosTotal}</div>
     </div>
   );
 }
