@@ -70,9 +70,16 @@ async function CrearBaseSiNoExiste() {
       // Insertar datos básicos en la tabla Pasajeros
       await db.run(
         `INSERT INTO Pasajeros (nombre, correo_electronico, fecha_nacimiento)
-         VALUES ('Alice Smith', 'alice@example.com', '1990-05-15'),
-                ('Bob Johnson', 'bob@example.com', '1985-09-22'),
-                ('Eve Brown', 'eve@example.com', '2000-03-10');`
+         VALUES ('Lionel Messi', 'lionel@example.com', '1987-06-24'),
+      ('Cuti Romero', 'cuti@example.com', '1998-04-19'),
+      ('Angel Di Maria', 'angel@example.com', '1988-02-14'),
+      ('Paulo Dybala', 'paulo@example.com', '1993-11-15'),
+      ('Emiliano Martinez', 'emiliano@example.com', '1992-09-02'),
+      ('Nicolas Otamendi', 'nicolas@example.com', '1988-02-12'),
+      ('Enzo Fernandez', 'enzo@example.com', '1999-03-20'),
+      ('Julian Alvarez', 'julian@example.com', '1998-01-31'),
+      ('Lautaro Martinez', 'lautaro@example.com', '1997-08-22'),
+      ('Giovani Lo Celso', 'giovani@example.com', '1996-04-09');`
       );
       console.log("Datos insertados en la tabla Pasajeros.");
     }
@@ -80,23 +87,30 @@ async function CrearBaseSiNoExiste() {
     if (!tables.some(table => table.name === 'Reservas')) {
       // Crear la tabla Reservas si no existe
       await db.run(
-        `CREATE TABLE Reservas (
-           id INTEGER PRIMARY KEY AUTOINCREMENT,
-           vuelo_id INTEGER,
-           pasajero_id INTEGER,
-           fecha_reserva TEXT,
-           FOREIGN KEY (vuelo_id) REFERENCES Vuelos(id),
-           FOREIGN KEY (pasajero_id) REFERENCES Pasajeros(id)
-         );`
+      `CREATE TABLE Reservas (
+         id INTEGER PRIMARY KEY AUTOINCREMENT,
+         vuelo_id INTEGER,
+         pasajero_id INTEGER,
+         fecha_reserva TEXT,
+         FOREIGN KEY (vuelo_id) REFERENCES Vuelos(id),
+         FOREIGN KEY (pasajero_id) REFERENCES Pasajeros(id)
+       );`
       );
       console.log("Tabla Reservas creada.");
       
       // Insertar datos básicos en la tabla Reservas
       await db.run(
-        `INSERT INTO Reservas (vuelo_id, pasajero_id, fecha_reserva)
-         VALUES (1, 1, '2024-06-18'),
-                (2, 2, '2024-06-19'),
-                (3, 3, '2024-06-20');`
+      `INSERT INTO Reservas (vuelo_id, pasajero_id, fecha_reserva)
+       VALUES (1, 1, '2024-06-18'),
+          (2, 2, '2024-06-19'),
+          (3, 3, '2024-06-20'),
+          (1, 4, '2024-06-21'),
+          (2, 5, '2024-06-22'),
+          (3, 6, '2024-06-23'),
+          (1, 7, '2024-06-24'),
+          (2, 8, '2024-06-25'),
+          (3, 9, '2024-06-26'),
+          (1, 10, '2024-06-27');`
       );
       console.log("Datos insertados en la tabla Reservas.");
     }
@@ -117,12 +131,21 @@ async function CrearBaseSiNoExiste() {
       // Insertar datos básicos en la tabla Aviones
       await db.run(
         `INSERT INTO Aviones (modelo, capacidad, aerolinea, fecha_fabricacion)
-         VALUES ('Boeing 737', 150, 'American Airlines', '2022-06-18'),
-                ('Airbus A380', 500, 'Air France', '2023-06-18'),
-                ('Boeing 787', 250, 'Japan Airlines', '2024-06-18');`
+         VALUES 
+           ('Boeing 737', 150, 'American Airlines', '2022-06-18'),
+           ('Airbus A380', 500, 'Air France', '2023-06-18'),
+           ('Boeing 787', 250, 'Japan Airlines', '2024-06-18'),
+           ('Airbus A320', 180, 'Lufthansa', '2021-05-12'),
+           ('Boeing 777', 300, 'Emirates', '2023-08-27'),
+           ('Airbus A350', 270, 'Qatar Airways', '2023-10-15'),
+           ('Boeing 737 MAX', 200, 'Ryanair', '2024-01-30'),
+           ('Airbus A330', 250, 'Singapore Airlines', '2022-11-05'),
+           ('Boeing 747', 400, 'British Airways', '2023-09-14'),
+           ('Embraer E190', 110, 'KLM', '2022-03-20');`
       );
       console.log("Datos insertados en la tabla Aviones.");
     }
+
 
     if (!tables.some(table => table.name === 'Aerolineas')) {
       // Crear la tabla Aerolineas si no existe
@@ -138,9 +161,17 @@ async function CrearBaseSiNoExiste() {
       // Insertar datos básicos en la tabla Aerolineas
       await db.run(
         `INSERT INTO Aerolineas (nombre, pais_origen)
-         VALUES ('American Airlines', 'USA'),
-                ('Air France', 'France'),
-                ('Japan Airlines', 'Japan');`
+         VALUES 
+           ('American Airlines', 'USA'),
+           ('Air France', 'France'),
+           ('Japan Airlines', 'Japan'),
+           ('Lufthansa', 'Germany'),
+           ('Emirates', 'UAE'),
+           ('Qatar Airways', 'Qatar'),
+           ('Ryanair', 'Ireland'),
+           ('Singapore Airlines', 'Singapore'),
+           ('British Airways', 'UK'),
+           ('KLM', 'Netherlands');`
       );
       console.log("Datos insertados en la tabla Aerolineas.");
     }

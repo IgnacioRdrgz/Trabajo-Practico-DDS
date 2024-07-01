@@ -19,22 +19,34 @@ function Pasajeros() {
   const [Item, setItem] = useState(null);
   const [Pagina, setPagina] = useState(1);
   const [Paginas, setPaginas] = useState([]);
+  const [PaginasTotal, setPaginasTotal] = useState(0);
+  const [RegistrosTotal, setRegistrosTotal] = useState(0);
+
 
   useEffect(() => {
-    Buscar(Pagina);
-  }, [nombre, Pagina]);
+    console.log("Ejecutando useEffect con Pagina:", Pagina);
+    Buscar(1);
+  }, [Pagina]);
 
   async function Buscar(_pagina) {
     modalDialogService.BloquearPantalla(true);
-    const data = await pasajerosService.Buscar(nombre, _pagina);
-    modalDialogService.BloquearPantalla(false);
-    setItems(data);
-    const arrPaginas = [];
-    for (let i = 1; i <= Math.ceil(data.length / 10); i++) {
-      arrPaginas.push(i);
+    try {
+      console.log("Buscando aerolíneas con país de origen:", nombre);
+      const response = await pasajerosService.Buscar(nombre);
+      console.log("Respuesta de búsqueda:", response);
+      const { Items, RegistrosTotal, PaginasTotal } = response;
+      setItems(Items);
+      console.log("Items actualizados:", Items);
+      setRegistrosTotal(RegistrosTotal);
+      setPaginasTotal(PaginasTotal);
+    } catch (error) {
+      console.error("Error al buscar aerolíneas:", error);
+      modalDialogService.Alert("Error al buscar aerolíneas. Por favor, inténtelo nuevamente.");
+    } finally {
+      modalDialogService.BloquearPantalla(false);
     }
-    setPaginas(arrPaginas);
   }
+ 
 
   async function BuscarPorId(item, accionABMC) {
     const data = await pasajerosService.BuscarPorId(item);

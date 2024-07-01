@@ -5,13 +5,28 @@ const router = express.Router();
 const db = require("../base-orm/sequelize-init");
 const { Op, ValidationError } = require("sequelize");
 
-// GET: Obtener todos los pasajeros
+// GET: Obtener todos los pasajeros con paginación y/o filtro por nombre
 router.get("/api/pasajeros", async (req, res) => {
   try {
-    const pasajeros = await db.Pasajero.findAll({
+    const Pagina = req.query.Pagina ? parseInt(req.query.Pagina, 10) : 1;
+    const TamañoPagina = 10;
+
+    // Construye la consulta para obtener los pasajeros de forma paginada
+    const whereClause = {};
+    if (req.query.nombre) {
+      whereClause.nombre = { [Op.like]: `%${req.query.nombre}%` };
+    }
+
+    const { count, rows } = await db.Pasajero.findAndCountAll({
       attributes: ["id", "nombre", "correo_electronico", "fecha_nacimiento"],
+      where: whereClause, // Aplica el filtro por nombre si se proporciona
+      order: [["nombre", "ASC"]],
+      offset: (Pagina - 1) * TamañoPagina,
+      limit: TamañoPagina,
     });
-    res.json(pasajeros);
+
+    // Envía la respuesta con los datos paginados y el total de registros
+    res.json({ Items: rows, RegistrosTotal: count });
   } catch (error) {
     console.error("Error al obtener los pasajeros:", error);
     res.status(500).json({ message: "Error interno del servidor" });

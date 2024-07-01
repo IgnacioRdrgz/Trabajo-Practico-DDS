@@ -57,8 +57,18 @@ const Pasajero = sequelize.define("pasajeros", {
     autoIncrement: true,
   },
   nombre: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(30),
     allowNull: false,
+    validate: {
+      notEmpty: {
+        args: true,
+        msg: "nombre es requerido",
+      },
+      len: {
+        args: [5, 30],
+        msg: "nombre debe ser tipo caracteres, entre 5 y 30 de longitud",
+      },
+    }, // Esta llave cierra correctamente la definición de 'nombre'
   },
   correo_electronico: {
     type: DataTypes.STRING(100),
@@ -76,6 +86,13 @@ const Pasajero = sequelize.define("pasajeros", {
     allowNull: false,
   },
 }, {
+  hooks: {
+    beforeValidate: function (pasajero, options) {
+      if (typeof pasajero.nombre === "string") {
+        pasajero.nombre = pasajero.nombre.toUpperCase().trim();
+      }
+    },
+  },
   timestamps: false // Deshabilitar timestamps
 });
 
@@ -92,6 +109,7 @@ const Reserva = sequelize.define("reservas", {
 }, {
   timestamps: false // Deshabilitar timestamps
 });
+
 
 const Avion = sequelize.define("aviones", {
   id: {
@@ -182,7 +200,10 @@ const Tripulacion = sequelize.define('Tripulacion', {
   timestamps: false // Si no tienes timestamps en la tabla
 });
 
-// Relaciones entre tablas
+
+
+
+// // Relaciones entre tablas
 Vuelo.belongsTo(Aerolinea); // Un vuelo pertenece a una aerolínea
 Vuelo.belongsTo(Avion); // Un vuelo utiliza un avión
 Vuelo.belongsTo(Aeropuerto, { as: 'aeropuerto_salida', foreignKey: 'aeropuerto_salida_id' });
@@ -191,9 +212,10 @@ Vuelo.belongsTo(Aeropuerto, { as: 'aeropuerto_llegada', foreignKey: 'aeropuerto_
 Reserva.belongsTo(Vuelo); // Una reserva pertenece a un vuelo
 Reserva.belongsTo(Pasajero); // Una reserva pertenece a un pasajero
 
+
 Tripulacion.belongsTo(Vuelo); // La tripulación trabaja en un vuelo
 Piloto.belongsTo(Avion); // El piloto vuela un avión
-// (Código de relaciones omitido por brevedad)
+//(Código de relaciones omitido por brevedad)
 
 // Exportar modelos y sequelize
 module.exports = {

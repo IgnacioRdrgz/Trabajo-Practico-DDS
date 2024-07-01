@@ -3,11 +3,16 @@ import { config } from "../config";
 
 const urlResourcePasajeros = config.urlResourcePasajeros;
 
-async function Buscar(nombre, Pagina) {
-  const resp = await httpService.get(urlResourcePasajeros, {
-    params: { nombre, Pagina },
-  });
-  return resp.data;
+async function Buscar(nombre) {
+  try {
+    const response = await httpService.get(urlResourcePasajeros, {
+      params: { nombre: nombre }, // Utilizar correctamente el parámetro pais_origen
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error en pasajeros:", error);
+    throw error;
+  }
 }
 
 async function BuscarPorId(item) {
