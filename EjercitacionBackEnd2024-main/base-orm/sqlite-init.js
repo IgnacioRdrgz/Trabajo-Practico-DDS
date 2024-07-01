@@ -117,12 +117,21 @@ async function CrearBaseSiNoExiste() {
       // Insertar datos básicos en la tabla Aviones
       await db.run(
         `INSERT INTO Aviones (modelo, capacidad, aerolinea, fecha_fabricacion)
-         VALUES ('Boeing 737', 150, 'American Airlines', '2022-06-18'),
-                ('Airbus A380', 500, 'Air France', '2023-06-18'),
-                ('Boeing 787', 250, 'Japan Airlines', '2024-06-18');`
+         VALUES 
+           ('Boeing 737', 150, 'American Airlines', '2022-06-18'),
+           ('Airbus A380', 500, 'Air France', '2023-06-18'),
+           ('Boeing 787', 250, 'Japan Airlines', '2024-06-18'),
+           ('Airbus A320', 180, 'Lufthansa', '2021-05-12'),
+           ('Boeing 777', 300, 'Emirates', '2023-08-27'),
+           ('Airbus A350', 270, 'Qatar Airways', '2023-10-15'),
+           ('Boeing 737 MAX', 200, 'Ryanair', '2024-01-30'),
+           ('Airbus A330', 250, 'Singapore Airlines', '2022-11-05'),
+           ('Boeing 747', 400, 'British Airways', '2023-09-14'),
+           ('Embraer E190', 110, 'KLM', '2022-03-20');`
       );
       console.log("Datos insertados en la tabla Aviones.");
     }
+
 
     if (!tables.some(table => table.name === 'Aerolineas')) {
       // Crear la tabla Aerolineas si no existe
@@ -138,9 +147,17 @@ async function CrearBaseSiNoExiste() {
       // Insertar datos básicos en la tabla Aerolineas
       await db.run(
         `INSERT INTO Aerolineas (nombre, pais_origen)
-         VALUES ('American Airlines', 'USA'),
-                ('Air France', 'France'),
-                ('Japan Airlines', 'Japan');`
+         VALUES 
+           ('American Airlines', 'USA'),
+           ('Air France', 'France'),
+           ('Japan Airlines', 'Japan'),
+           ('Lufthansa', 'Germany'),
+           ('Emirates', 'UAE'),
+           ('Qatar Airways', 'Qatar'),
+           ('Ryanair', 'Ireland'),
+           ('Singapore Airlines', 'Singapore'),
+           ('British Airways', 'UK'),
+           ('KLM', 'Netherlands');`
       );
       console.log("Datos insertados en la tabla Aerolineas.");
     }
