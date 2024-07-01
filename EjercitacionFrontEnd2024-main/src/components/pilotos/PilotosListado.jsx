@@ -9,7 +9,6 @@ export default function PilotosListado({ Items, Consultar, Modificar, ActivarDes
             <th>Nombre</th>
             <th>licencia</th>
             <th>Fecha de contratacion</th> {/* Agregar esta línea */}
-            <th>Id Piloto</th>
             <th>Acciones</th>
 
           </tr>
@@ -20,7 +19,6 @@ export default function PilotosListado({ Items, Consultar, Modificar, ActivarDes
               <td>{Item.nombre}</td>
               <td>{Item.licencia}</td>
               <td>{Item.fecha_contratacion}</td> {/* Agregar esta línea */}
-              <td>{Item.idPiloto}</td> {/* Agregar esta línea */}
               
 
               <td className="text-center">

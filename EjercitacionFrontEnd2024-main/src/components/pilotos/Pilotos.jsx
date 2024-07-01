@@ -65,7 +65,6 @@ function Pilotos() {
       nombre: "",
       licencia: 0,
       fecha_contratacion: "",
-      idPiloto: 0,
     });
   }
 
@@ -143,7 +142,6 @@ function Pilotos() {
           Item={Item}
           Grabar={Grabar}
           Volver={Volver}
-         // aerolineas={aerolineas}
 //          tripulacionSeleccionada={tripulacionSeleccionada}
           setTripulacionSeleccionada={setTripulacionSeleccionada}
         />
