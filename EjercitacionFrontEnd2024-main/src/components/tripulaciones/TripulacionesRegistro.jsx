@@ -7,6 +7,8 @@ export default function TripulacionesRegistro({
   Grabar,
   Volver,
   pilotos, // Asegúrate de recibir pilotos como una propiedad
+  pilotoSeleccionada,
+  setPilotoSeleccionada,
 }) {
   const {
     register,
@@ -23,6 +25,10 @@ export default function TripulacionesRegistro({
       setValue("idPiloto", Item.idPiloto || ""); // Asegúrate de setear idPiloto si existe en Item
     }
   }, [Item, setValue]);
+
+  useEffect(() => {
+    console.log("Pilotos recibidos:", pilotos); // Agregar console.log aquí para pilotos
+  }, [pilotos]);
 
   const onSubmit = (data) => {
     Grabar(data);
@@ -68,7 +74,7 @@ export default function TripulacionesRegistro({
           <div className="row">
             <div className="col-sm-4 col-md-3 offset-md-1">
               <label className="col-form-label" htmlFor="rol">
-                País de Origen<span className="text-danger">*</span>:
+                Rol<span className="text-danger">*</span>:
               </label>
             </div>
             <div className="col-sm-8 col-md-6">
@@ -104,19 +110,20 @@ export default function TripulacionesRegistro({
               </label>
             </div>
             <div className="col-sm-8 col-md-6">
-              <select
+
+            <select
                 {...register("idPiloto", {
                   required: { value: true, message: "Piloto es requerido" },
                 })}
-                value={Item?.idPiloto || ""}
-                onChange={(e) => setValue("idPiloto", e.target.value)}
+                value={pilotoSeleccionada || ""}
+                onChange={(e) => setPilotoSeleccionada(e.target.value)} // Actualiza pilotoSeleccionada con el valor seleccionado
                 className={
                   "form-control" + (errors?.idPiloto ? " is-invalid" : "")
                 }
               >
                 <option value="">Seleccionar Piloto</option>
-                {Array.isArray(pilotos?.Items) &&
-                  pilotos.Items.map((piloto) => (
+                {Array.isArray(pilotos) &&
+                  pilotos.map((piloto) => (
                     <option key={piloto.id} value={piloto.id}>
                       {piloto.nombre}
                     </option>

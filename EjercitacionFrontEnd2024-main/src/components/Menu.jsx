@@ -68,7 +68,7 @@ function Menu() {
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/pilotos">
-                Aviones
+                Pilotos
               </NavLink>
             </li>
           </ul>

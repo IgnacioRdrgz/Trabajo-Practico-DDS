@@ -34,7 +34,7 @@ export default function TripulacionesListado({
                 <td className="text-end">
                   {moment(Item.fecha_contratacion).format("DD/MM/YYYY")}
                 </td>
-                <td className="text-end">{Item.idPiloto}</td>
+                <td className="text-end">{Item.id}</td>
 
                 <td className="text-center text-nowrap">
                   <button

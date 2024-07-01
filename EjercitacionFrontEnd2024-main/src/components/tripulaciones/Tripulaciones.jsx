@@ -22,6 +22,9 @@ function Tripulaciones() {
   const [PaginasTotal, setPaginasTotal] = useState(0);
   const [RegistrosTotal, setRegistrosTotal] = useState(0);
   const [pilotos, setPilotos] = useState([]);
+  const [pilotoSeleccionada, setPilotoSeleccionada] = useState(null);
+
+
 
   useEffect(() => {
     cargarPilotos();
@@ -31,7 +34,7 @@ function Tripulaciones() {
   async function Buscar(_pagina) {
     modalDialogService.BloquearPantalla(true);
     try {
-      console.log("Buscando tripulaicon con país de origen:", nombre);
+      console.log("Buscando tripulaicon por nombre:", nombre);
       const response = await tripulacionService.BuscarPorNombre(nombre);
       console.log("Respuesta de búsqueda:", response);
       const { Items, RegistrosTotal, PaginasTotal } = response;
@@ -40,8 +43,8 @@ function Tripulaciones() {
       setRegistrosTotal(RegistrosTotal);
       setPaginasTotal(PaginasTotal);
     } catch (error) {
-      console.error("Error al buscar aerolíneas:", error);
-      modalDialogService.Alert("Error al buscar aerolíneas. Por favor, inténtelo nuevamente.");
+      console.error("Error al buscar tripulaciones:", error);
+      modalDialogService.Alert("Error al buscar tripulaciones. Por favor, inténtelo nuevamente.");
     } finally {
       modalDialogService.BloquearPantalla(false);
     }
@@ -49,7 +52,7 @@ function Tripulaciones() {
   async function cargarPilotos() {
     try {
       const response = await tripulacionService.ObtenerPilotos();
-      setPilotos(response.Items);
+      setPilotos(response);
     } catch (error) {
       console.error("Error al cargar pilotos:", error);
     }
@@ -91,7 +94,7 @@ function Tripulaciones() {
       async () => {
         try {
           await tripulacionService.ActivarDesactivar(item);
-          console.log(`${item.Activo ? "Desactivada" : "Activada"} aerolínea:`, item.id);
+          console.log(`${item.Activo ? "Desactivada" : "Activada"} tripulacion:`, item.id);
           await Buscar(1);
         } catch (error) {
           console.error("Error al activar/desactivar tripulacion:", error);
@@ -103,6 +106,7 @@ function Tripulaciones() {
 
   async function Grabar(item) {
     try {
+      item.piloto = pilotoSeleccionada;
       await tripulacionService.Grabar(item);
       console.log(`Registro ${AccionABMC === "A" ? "agregado" : "modificado"} correctamente.`);
       await Buscar(1);
@@ -113,7 +117,7 @@ function Tripulaciones() {
         } correctamente.`
       );
     } catch (error) {
-      console.error("Error al grabar aerolínea:", error);
+      console.error("Error al grabar tripulacion:", error);
       modalDialogService.Alert(
         error?.response?.data?.message ?? error.toString()
       );
@@ -127,7 +131,7 @@ function Tripulaciones() {
   return (
     <div>
       <div className="tituloPagina">
-        Aerolíneas <small>{TituloAccionABMC[AccionABMC]}</small>
+        Tripulaciones <small>{TituloAccionABMC[AccionABMC]}</small>
       </div>
 
       {AccionABMC === "L" && (
@@ -163,6 +167,8 @@ function Tripulaciones() {
           Grabar={Grabar}
           Volver={Volver}
           pilotos = {pilotos}
+          pilotoSeleccionada={pilotoSeleccionada}
+          setPilotoSeleccionada={setPilotoSeleccionada}
         />
       )}
 
@@ -188,4 +194,5 @@ function Tripulaciones() {
 }
 
 export { Tripulaciones };
+
 

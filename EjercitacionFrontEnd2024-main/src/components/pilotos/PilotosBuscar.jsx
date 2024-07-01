@@ -6,7 +6,7 @@ export default function PilotosBuscar({ nombre, setnombre, Buscar, Agregar }) {
       <div className="container-fluid">
         <div className="row">
           <div className="col-sm-4 col-md-2">
-            <label className="col-form-label">Modelo:</label>
+            <label className="col-form-label">Nombre:</label>
           </div>
           <div className="col-sm-8 col-md-4">
             <input

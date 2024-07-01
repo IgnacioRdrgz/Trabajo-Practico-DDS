@@ -3,10 +3,10 @@ import React from "react";
 export default function Tripulacion({ nombre,setnombre, Buscar, Agregar }) {
   return (
     <form>
-      {/* Campo de búsqueda por país de origen */}
+      {/* Campo de búsqueda por Nombre */}
       <div className="row mt-3">
         <div className="col-sm-4 col-md-2">
-          <label className="col-form-label">País de Origen:</label>
+          <label className="col-form-label">Nombre:</label>
         </div>
         <div className="col-sm-8 col-md-4">
           <input
