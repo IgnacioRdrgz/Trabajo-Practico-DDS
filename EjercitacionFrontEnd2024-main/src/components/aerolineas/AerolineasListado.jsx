@@ -8,14 +8,15 @@ export default function AerolineasListado({ Items, Consultar, Modificar, Activar
           <tr>
             <th>Nombre</th>
             <th>País de Origen</th>
-            <th>Acciones</th>
-          </tr>
+            {/* <th>Acciones</th> */} {/* Comentado */}
+            </tr>
         </thead>
         <tbody>
           {Items && Items.map((Item) => (
             <tr key={Item.id}>
               <td>{Item.nombre}</td>
               <td>{Item.pais_origen}</td>
+              {/*
               <td className="text-center">
                 <button
                   className="btn btn-sm btn-outline-primary me-1"
@@ -39,6 +40,7 @@ export default function AerolineasListado({ Items, Consultar, Modificar, Activar
                   {Item.Activo ? <i className="fa fa-times"></i> : <i className="fa fa-check"></i>}
                 </button>
               </td>
+            */}
             </tr>
           ))}
         </tbody>
