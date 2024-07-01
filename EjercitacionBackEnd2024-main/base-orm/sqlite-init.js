@@ -14,21 +14,31 @@ async function CrearBaseSiNoExiste() {
       // Crear la tabla Vuelos si no existe
       await db.run(
         `CREATE TABLE Vuelos (
-           id INTEGER PRIMARY KEY AUTOINCREMENT,
-           numero_vuelo TEXT NOT NULL,
-           destino TEXT NOT NULL,
-           fecha_salida TEXT NOT NULL,
-           fecha_llegada TEXT NOT NULL
-         );`
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    numero_vuelo TEXT NOT NULL,
+    destino TEXT NOT NULL,
+    idAeropuerto INTEGER NOT NULL,
+    fecha_salida TEXT NOT NULL,
+    fecha_llegada TEXT NOT NULL,
+    FOREIGN KEY (idAeropuerto) REFERENCES aeropuertos(idAeropuerto)
+    
+    );`
       );
       console.log("Tabla Vuelos creada.");
 
       // Insertar datos básicos en la tabla Vuelos
       await db.run(
-        `INSERT INTO Vuelos (numero_vuelo, destino, fecha_salida, fecha_llegada)
-         VALUES ('AV123', 'New York', '2024-07-01', '2024-07-02'),
-                ('AV456', 'Paris', '2024-07-03', '2024-07-04'),
-                ('AV789', 'Tokyo', '2024-07-05', '2024-07-06');`
+        `INSERT INTO Vuelos 
+         VALUES (1 , 'AA100', 'New York', 1, '2024-07-01', '2024-07-01'),
+                (2 , 'AF200', 'Paris', 2, '2024-07-02', '2024-07-02'),
+                (3 , 'JL300', 'Tokyo', 6, '2024-07-03', '2024-07-03'),
+                (4 , 'SQ400', 'Singapore', 7, '2024-07-04', '2024-07-04'),
+                (5 , 'EK500', 'Dubai', 8, '2024-07-05', '2024-07-05'),
+                (6 , 'LH600', 'Frankfurt', 9,  '2024-07-06', '2024-07-07'),
+                (7 , 'QF700', 'Sydney', 10, '2024-07-08', '2024-07-09'),
+                (8 , 'BA800', 'London', 4, '2024-07-09', '2024-07-09'),
+                (9 , 'UA900', 'Los Angeles', 5, '2024-07-10', '2024-07-11'),
+                (10 , 'CX1000', 'Hong Kong', 7, '2024-07-11', '2024-07-11');`
       );
       console.log("Datos insertados en la tabla Vuelos.");
     }
@@ -37,7 +47,7 @@ async function CrearBaseSiNoExiste() {
       // Crear la tabla Aeropuertos si no existe
       await db.run(
         `CREATE TABLE Aeropuertos (
-           id INTEGER PRIMARY KEY AUTOINCREMENT,
+           idAeropuerto INTEGER PRIMARY KEY AUTOINCREMENT,
            nombre TEXT NOT NULL,
            ciudad TEXT NOT NULL,
            pais TEXT NOT NULL
@@ -47,17 +57,17 @@ async function CrearBaseSiNoExiste() {
 
       // Insertar datos básicos en la tabla Aeropuertos
       await db.run(
-        `INSERT INTO Aeropuertos (nombre, ciudad, pais)
-         VALUES ('JFK International Airport', 'New York', 'USA'),
-                ('Charles de Gaulle Airport', 'Paris', 'France'),
-                ('Narita International Airport', 'Tokyo', 'Japan'),
-                ('Heathrow Airport', 'London', 'United Kingdom'),
-                ('Los Angeles International Airport', 'Los Angeles', 'USA'),
-                ('Haneda Airport', 'Tokyo', 'Japan'),
-                ('Changi Airport', 'Singapore', 'Singapore'),
-                ('Dubai International Airport', 'Dubai', 'United Arab Emirates'),
-                ('Frankfurt Airport', 'Frankfurt', 'Germany'),
-                ('Sydney Airport', 'Sydney', 'Australia');`
+        `INSERT INTO Aeropuertos (idAeropuerto, nombre, ciudad, pais)
+         VALUES (1 , 'JFK International Airport', 'New York', 'USA'),
+                (2 , 'Charles de Gaulle Airport', 'Paris', 'France'),
+                (3 , 'Narita International Airport', 'Tokyo', 'Japan'),
+                (4 , 'Heathrow Airport', 'London', 'United Kingdom'),
+                (5 , 'Los Angeles International Airport', 'Los Angeles', 'USA'),
+                (6 , 'Haneda Airport', 'Tokyo', 'Japan'),
+                (7 , 'Changi Airport', 'Singapore', 'Singapore'),
+                (8 , 'Dubai International Airport', 'Dubai', 'United Arab Emirates'),
+                (9 , 'Frankfurt Airport', 'Frankfurt', 'Germany'),
+                (10, 'Sydney Airport', 'Sydney', 'Australia');`
       );
       console.log("Datos insertados en la tabla Aeropuertos.");
     }

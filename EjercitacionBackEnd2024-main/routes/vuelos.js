@@ -15,7 +15,7 @@ router.get("/api/vuelos", async function (req, res, next) {
     const pagina = req.query.pagina ?? 1;
     const tamañoPagina = 10;
     const { count, rows } = await db.Vuelo.findAndCountAll({
-      attributes: ["id", "numero_vuelo", "destino", "fecha_salida", "fecha_llegada"],
+      attributes: ["id", "numero_vuelo", "destino", "idAeropuerto", "fecha_salida", "fecha_llegada"],
       order: [["destino", "ASC"]],
       where,
       offset: (pagina - 1) * tamañoPagina,
@@ -50,6 +50,7 @@ router.post("/api/vuelos", async (req, res) => {
     const nuevoVuelo = await db.Vuelo.create({
       numero_vuelo: req.body.numero_vuelo,
       destino: req.body.destino,
+      IdAeropuerto: req.body.IdAeropuerto,
       fecha_salida: req.body.fecha_salida,
       fecha_llegada: req.body.fecha_llegada,
     });
@@ -77,6 +78,7 @@ router.put("/api/vuelos/:id", async (req, res) => {
     }
     vuelo.numero_vuelo = req.body.numero_vuelo;
     vuelo.destino = req.body.destino;
+    vuelo.IdAeropuerto = req.body.IdAeropuerto;
     vuelo.fecha_salida = req.body.fecha_salida;
     vuelo.fecha_llegada = req.body.fecha_llegada;
     await vuelo.save();
