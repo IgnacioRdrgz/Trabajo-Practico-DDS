@@ -5,12 +5,23 @@ const router = express.Router();
 const db = require("../base-orm/sequelize-init");
 const { Op, ValidationError } = require("sequelize");
 
-// GET: Obtener todos los pilotos
+// GET: Obtener todos los pilotos filtrados por nombre
 router.get("/api/pilotos", async (req, res) => {
   try {
+    const { nombre } = req.query;
+
+    let whereClause = {};
+    if (nombre) {
+      whereClause.nombre = {
+        [Op.like]: `%${nombre}%` // Búsqueda por nombre que contenga el texto proporcionado
+      };
+    }
+
     const pilotos = await db.Piloto.findAll({
       attributes: ["id", "nombre", "licencia", "fecha_contratacion"],
+      where: whereClause
     });
+
     res.json(pilotos);
   } catch (error) {
     console.error("Error al obtener los pilotos:", error);

@@ -174,17 +174,19 @@ async function CrearBaseSiNoExiste() {
            id INTEGER PRIMARY KEY AUTOINCREMENT,
            nombre TEXT NOT NULL,
            rol TEXT,
-           fecha_contratacion TEXT
+           fecha_contratacion TEXT,
+           idPiloto INTEGER
+
          );`
       );
       console.log("Tabla Tripulacion creada.");
       
       // Insertar datos básicos en la tabla Tripulacion
       await db.run(
-        `INSERT INTO Tripulacion (nombre, rol, fecha_contratacion)
-         VALUES ('Emily Davis', 'Azafata', '2012-07-01'),
-                ('David Wilson', 'Piloto', '2014-09-15'),
-                ('Sophia Martinez', 'Copiloto', '2017-11-20');`
+        `INSERT INTO Tripulacion (nombre, rol, fecha_contratacion,idPiloto)
+         VALUES ('Emily Davis', 'Azafata', '2012-07-01',1),
+                ('David Wilson', 'Piloto', '2014-09-15',2),
+                ('Sophia Martinez', 'Copiloto', '2017-11-20',3);`
       );
       console.log("Datos insertados en la tabla Tripulacion.");
     }

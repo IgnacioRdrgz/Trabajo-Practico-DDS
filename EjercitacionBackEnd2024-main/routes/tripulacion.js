@@ -5,13 +5,26 @@ const router = express.Router();
 const db = require("../base-orm/sequelize-init");
 const { Op, ValidationError } = require("sequelize");
 
-// GET: Obtener toda la tripulación
+// GET: Obtener toda la tripulación con paginación y/o filtro por nombre
 router.get("/api/tripulacion", async (req, res) => {
   try {
-    const tripulacion = await db.Tripulacion.findAll({
-      attributes: ["id", "nombre", "rol", "fecha_contratacion"],
+    const Pagina = req.query.Pagina ? parseInt(req.query.Pagina, 10) : 1;
+    const TamañoPagina = 10;
+
+    const whereClause = {};
+    if (req.query.nombre) {
+      whereClause.nombre = { [Op.like]: `%${req.query.nombre}%` };
+    }
+
+    const { count, rows } = await db.Tripulacion.findAndCountAll({
+      attributes: ["id", "nombre", "rol", "fecha_contratacion", "idPiloto"],
+      where: whereClause,
+      order: [["nombre", "ASC"]],
+      offset: (Pagina - 1) * TamañoPagina,
+      limit: TamañoPagina,
     });
-    res.json(tripulacion);
+
+    res.json({ Items: rows, RegistrosTotal: count });
   } catch (error) {
     console.error("Error al obtener la tripulación:", error);
     res.status(500).json({ message: "Error interno del servidor" });
@@ -22,7 +35,7 @@ router.get("/api/tripulacion", async (req, res) => {
 router.get("/api/tripulacion/:id", async (req, res) => {
   try {
     const miembroTripulacion = await db.Tripulacion.findOne({
-      attributes: ["id", "nombre", "rol", "fecha_contratacion"],
+      attributes: ["id", "nombre", "rol", "fecha_contratacion", "idPiloto"],
       where: { id: req.params.id },
     });
     if (!miembroTripulacion) {
@@ -42,6 +55,7 @@ router.post("/api/tripulacion", async (req, res) => {
       nombre: req.body.nombre,
       rol: req.body.rol,
       fecha_contratacion: req.body.fecha_contratacion,
+      idPiloto: req.body.idPiloto
     });
     res.status(200).json(nuevoMiembro);
   } catch (err) {
@@ -68,6 +82,7 @@ router.put("/api/tripulacion/:id", async (req, res) => {
     miembroTripulacion.nombre = req.body.nombre;
     miembroTripulacion.rol = req.body.rol;
     miembroTripulacion.fecha_contratacion = req.body.fecha_contratacion;
+    miembroTripulacion.idPiloto = req.body.idPiloto;
     await miembroTripulacion.save();
     res.sendStatus(204);
   } catch (err) {
