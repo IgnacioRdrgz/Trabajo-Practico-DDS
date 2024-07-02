@@ -36,10 +36,7 @@ function Menu() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div
-          className="collapse navbar-collapse"
-          id="navbarSupportedContent"
-        >
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item">
               <NavLink className="nav-link" to="/inicio">
@@ -54,6 +51,14 @@ function Menu() {
             <li className="nav-item">
               <NavLink className="nav-link" to="/vuelos">
                 Vuelos
+                </NavLink>
+              <NavLink className="nav-link" to="/pasajeros">
+                Pasajeros
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/reservas">
+                Reservas
               </NavLink>
             </li>
             <li className="nav-item">

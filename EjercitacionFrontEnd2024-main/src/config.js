@@ -15,6 +15,8 @@ const urlResourcePiloto = urlServidor + "/api/pilotos"
 const urlResourceAeropuertos = "http://localhost:4000/api/aeropuertos";
 const urlResourceVuelos = urlServidor + "/api/vuelos";
 
+const urlResourcePasajeros = urlServidor + "/api/pasajeros";
+const urlResourceReservas = urlServidor + "/api/reservas";
 export const config = {
     urlServidor,
     urlResourceAviones,
@@ -22,5 +24,7 @@ export const config = {
     urlResourceTripulacion,
     urlResourcePiloto,
     urlResourceAeropuertos,
-    urlResourceVuelos
+    urlResourceVuelos,
+    urlResourcePasajeros,
+    urlResourceReservas,
 }

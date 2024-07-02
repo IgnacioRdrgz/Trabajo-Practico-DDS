@@ -67,8 +67,18 @@ const Pasajero = sequelize.define("pasajeros", {
     autoIncrement: true,
   },
   nombre: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(30),
     allowNull: false,
+    validate: {
+      notEmpty: {
+        args: true,
+        msg: "nombre es requerido",
+      },
+      len: {
+        args: [5, 30],
+        msg: "nombre debe ser tipo caracteres, entre 5 y 30 de longitud",
+      },
+    }, // Esta llave cierra correctamente la definición de 'nombre'
   },
   correo_electronico: {
     type: DataTypes.STRING(100),
@@ -86,6 +96,13 @@ const Pasajero = sequelize.define("pasajeros", {
     allowNull: false,
   },
 }, {
+  hooks: {
+    beforeValidate: function (pasajero, options) {
+      if (typeof pasajero.nombre === "string") {
+        pasajero.nombre = pasajero.nombre.toUpperCase().trim();
+      }
+    },
+  },
   timestamps: false // Deshabilitar timestamps
 });
 
@@ -95,6 +112,18 @@ const Reserva = sequelize.define("reservas", {
     primaryKey: true,
     autoIncrement: true,
   },
+  clase: {
+    type: DataTypes.STRING(10),
+    allowNull: false,
+  },
+  vuelo_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  pasajero_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   fecha_reserva: {
     type: DataTypes.DATEONLY,
     allowNull: false,
@@ -102,6 +131,7 @@ const Reserva = sequelize.define("reservas", {
 }, {
   timestamps: false // Deshabilitar timestamps
 });
+
 
 const Avion = sequelize.define("aviones", {
   id: {

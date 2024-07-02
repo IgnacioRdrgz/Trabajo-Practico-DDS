@@ -13,6 +13,8 @@ import { Vuelos } from "./components/vuelos/Vuelos";
 
 
 
+import { Pasajeros } from "./components/pasajeros/Pasajeros";
+import { Reservas } from "./components/reservas/Reservas";
 
 function App() {
   return (
@@ -36,4 +38,5 @@ function App() {
     </>
   );
 }
+
 export default App;

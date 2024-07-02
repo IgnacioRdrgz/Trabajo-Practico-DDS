@@ -88,9 +88,16 @@ async function CrearBaseSiNoExiste() {
       // Insertar datos básicos en la tabla Pasajeros
       await db.run(
         `INSERT INTO Pasajeros (nombre, correo_electronico, fecha_nacimiento)
-         VALUES ('Alice Smith', 'alice@example.com', '1990-05-15'),
-                ('Bob Johnson', 'bob@example.com', '1985-09-22'),
-                ('Eve Brown', 'eve@example.com', '2000-03-10');`
+         VALUES ('Lionel Messi', 'lionel@gmail.com', '1987-06-24'),
+      ('Cuti Romero', 'cuti@gmail.com', '1998-04-19'),
+      ('Angel Di Maria', 'angel@gmail.com', '1988-02-14'),
+      ('Paulo Dybala', 'paulo@gmail.com', '1993-11-15'),
+      ('Emiliano Martinez', 'emiliano@gmail.com', '1992-09-02'),
+      ('Nicolas Otamendi', 'nicolas@gmail.com', '1988-02-12'),
+      ('Enzo Fernandez', 'enzo@gmail.com', '1999-03-20'),
+      ('Julian Alvarez', 'julian@gmail.com', '1998-01-31'),
+      ('Lautaro Martinez', 'lautaro@gmail.com', '1997-08-22'),
+      ('Giovani Lo Celso', 'giovani@gmail.com', '1996-04-09');`
       );
       console.log("Datos insertados en la tabla Pasajeros.");
     }
@@ -98,23 +105,30 @@ async function CrearBaseSiNoExiste() {
     if (!tables.some(table => table.name === 'Reservas')) {
       // Crear la tabla Reservas si no existe
       await db.run(
-        `CREATE TABLE Reservas (
-           id INTEGER PRIMARY KEY AUTOINCREMENT,
-           vuelo_id INTEGER,
-           pasajero_id INTEGER,
-           fecha_reserva TEXT,
-           FOREIGN KEY (vuelo_id) REFERENCES Vuelos(id),
-           FOREIGN KEY (pasajero_id) REFERENCES Pasajeros(id)
-         );`
+      `CREATE TABLE Reservas (
+         id INTEGER PRIMARY KEY AUTOINCREMENT,
+         clase TEXT,
+         vuelo_id INTEGER,
+         pasajero_id INTEGER,
+         fecha_reserva TEXT
+       );`
       );
       console.log("Tabla Reservas creada.");
 
       // Insertar datos básicos en la tabla Reservas
       await db.run(
-        `INSERT INTO Reservas (vuelo_id, pasajero_id, fecha_reserva)
-         VALUES (1, 1, '2024-06-18'),
-                (2, 2, '2024-06-19'),
-                (3, 3, '2024-06-20');`
+        `INSERT INTO Reservas (clase, vuelo_id, pasajero_id, fecha_reserva)
+         VALUES
+            ('Economy', 1, 'Lionel Messi', '2024-06-18'),
+            ('Business', 2, 'Cuti Romero', '2024-06-19'),
+            ('First Class', 3, 'Angel Di Maria', '2024-06-20'),
+            ('Economy', 4, 'Cuti Romero', '2024-06-21'),
+            ('Business', 5, 'Emiliano Martinez', '2024-06-22'),
+            ('First Class', 6, 'Lionel Messi', '2024-06-23'),
+            ('Economy', 7, 'Nicolas Otamendi', '2024-06-24'),
+            ('Business', 8, 'Enzo Fernandez', '2024-06-25'),
+            ('First Class', 9, 'Julian Alvarez', '2024-06-26'),
+            ('Economy', 10, 'Lautaro Martinez', '2024-06-27');`
       );
       console.log("Datos insertados en la tabla Reservas.");
     }

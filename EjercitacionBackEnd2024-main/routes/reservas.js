@@ -1,28 +1,39 @@
-// reservas.js
-
 const express = require("express");
 const router = express.Router();
 const db = require("../base-orm/sequelize-init");
 const { Op, ValidationError } = require("sequelize");
 
-// GET: Obtener todas las reservas
 router.get("/api/reservas", async (req, res) => {
   try {
-    const reservas = await db.Reserva.findAll({
-      attributes: ["id", "vuelo_id", "pasajero_id", "fecha_reserva"],
+  
+
+    // Construye la consulta para obtener los reservas de forma paginada
+    const whereClause = {};
+    if (req.query.clase) {
+      whereClause.clase = { [Op.like]: `%${req.query.clase}%` };
+    }
+
+    const { count, rows } = await db.Reserva.findAndCountAll({
+      attributes: ["id", "clase", "vuelo_id", "pasajero_id", "fecha_reserva"],
+      where: whereClause, // Aplica el filtro por nombre si se proporciona
+      order: [["clase", "ASC"]],
+     
     });
-    res.json(reservas);
+
+    // Envía la respuesta con los datos paginados y el total de registros
+    res.json({ Items: rows, RegistrosTotal: count });
   } catch (error) {
     console.error("Error al obtener las reservas:", error);
     res.status(500).json({ message: "Error interno del servidor" });
   }
 });
 
+
 // GET: Obtener una reserva por su ID
 router.get("/api/reservas/:id", async (req, res) => {
   try {
     const reserva = await db.Reserva.findOne({
-      attributes: ["id", "vuelo_id", "pasajero_id", "fecha_reserva"],
+      attributes: ["id", "clase", "vuelo_id", "pasajero_id", "fecha_reserva"],
       where: { id: req.params.id },
     });
     if (!reserva) {
@@ -39,6 +50,7 @@ router.get("/api/reservas/:id", async (req, res) => {
 router.post("/api/reservas", async (req, res) => {
   try {
     const nuevaReserva = await db.Reserva.create({
+      clase: req.body.clase,
       vuelo_id: req.body.vuelo_id,
       pasajero_id: req.body.pasajero_id,
       fecha_reserva: req.body.fecha_reserva,
@@ -65,6 +77,7 @@ router.put("/api/reservas/:id", async (req, res) => {
     if (!reserva) {
       return res.status(404).json({ message: "Reserva no encontrada" });
     }
+    reserva.clase = req.body.clase;
     reserva.vuelo_id = req.body.vuelo_id;
     reserva.pasajero_id = req.body.pasajero_id;
     reserva.fecha_reserva = req.body.fecha_reserva;
