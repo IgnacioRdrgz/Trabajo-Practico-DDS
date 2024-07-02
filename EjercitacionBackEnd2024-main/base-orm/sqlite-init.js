@@ -70,16 +70,16 @@ async function CrearBaseSiNoExiste() {
       // Insertar datos básicos en la tabla Pasajeros
       await db.run(
         `INSERT INTO Pasajeros (nombre, correo_electronico, fecha_nacimiento)
-         VALUES ('Lionel Messi', 'lionel@example.com', '1987-06-24'),
-      ('Cuti Romero', 'cuti@example.com', '1998-04-19'),
-      ('Angel Di Maria', 'angel@example.com', '1988-02-14'),
-      ('Paulo Dybala', 'paulo@example.com', '1993-11-15'),
-      ('Emiliano Martinez', 'emiliano@example.com', '1992-09-02'),
-      ('Nicolas Otamendi', 'nicolas@example.com', '1988-02-12'),
-      ('Enzo Fernandez', 'enzo@example.com', '1999-03-20'),
-      ('Julian Alvarez', 'julian@example.com', '1998-01-31'),
-      ('Lautaro Martinez', 'lautaro@example.com', '1997-08-22'),
-      ('Giovani Lo Celso', 'giovani@example.com', '1996-04-09');`
+         VALUES ('Lionel Messi', 'lionel@gmail.com', '1987-06-24'),
+      ('Cuti Romero', 'cuti@gmail.com', '1998-04-19'),
+      ('Angel Di Maria', 'angel@gmail.com', '1988-02-14'),
+      ('Paulo Dybala', 'paulo@gmail.com', '1993-11-15'),
+      ('Emiliano Martinez', 'emiliano@gmail.com', '1992-09-02'),
+      ('Nicolas Otamendi', 'nicolas@gmail.com', '1988-02-12'),
+      ('Enzo Fernandez', 'enzo@gmail.com', '1999-03-20'),
+      ('Julian Alvarez', 'julian@gmail.com', '1998-01-31'),
+      ('Lautaro Martinez', 'lautaro@gmail.com', '1997-08-22'),
+      ('Giovani Lo Celso', 'giovani@gmail.com', '1996-04-09');`
       );
       console.log("Datos insertados en la tabla Pasajeros.");
     }
