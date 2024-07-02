@@ -24,7 +24,7 @@ function Menu() {
       <div className="container-fluid">
         <a className="navbar-brand" href="#!">
           <i className="fa fa-paper-plane"></i>
-          &nbsp;<i>Reserva Vuelos</i>
+          &nbsp;<i>Gestión Aérea</i>
         </a>
         <button
           className="navbar-toggler"
