@@ -28,22 +28,21 @@ function Aviones() {
  //   cargarDatos();
  // }, [modelo, Pagina]);
 
-<<<<<<< HEAD
  useEffect(() => {
   console.log("Ejecutando useEffect con Pagina:", Pagina);
   cargarDatos();
-  buscarAviones(1);
+  Buscar(1);
 }, [Pagina]);
 
 
   async function cargarDatos() {
     await cargarAerolineas();
-    await buscarAviones(Pagina);
+    await Buscar(Pagina);
   }
 
   
 
-  async function buscarAviones(_pagina) {
+  async function Buscar(_pagina) {
     modalDialogService.BloquearPantalla(true);
     try {
       console.log("Buscando aviones con país de origen:", modelo);
@@ -74,25 +73,6 @@ function Aviones() {
  //   setPaginas(arrPaginas);
  // }
   
-=======
-  useEffect(() => {
-    cargarAerolineas(); // Mantenemos esta llamada si es necesaria
-    Buscar(Pagina); // Eliminar esta línea para evitar la búsqueda automática
-  }, [modelo, Pagina]);
-
-  async function Buscar(_pagina) {
-    modalDialogService.BloquearPantalla(true);
-    const data = await avionesService.Buscar(modelo, _pagina);
-    modalDialogService.BloquearPantalla(false);
-    setItems(data);
-    const arrPaginas = [];
-    for (let i = 1; i <= Math.ceil(data.length / 10); i++) {
-      arrPaginas.push(i);
-    }
-    setPaginas(arrPaginas);
-  }
-
->>>>>>> 88a23ae255bc0b09430b83d715728774c2e111fc
   async function cargarAerolineas() {
     const aerolineasData = await avionesService.ObtenerAerolineas();
     setAerolineas(aerolineasData);
