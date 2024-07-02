@@ -28,6 +28,7 @@ function Aviones() {
  //   cargarDatos();
  // }, [modelo, Pagina]);
 
+<<<<<<< HEAD
  useEffect(() => {
   console.log("Ejecutando useEffect con Pagina:", Pagina);
   cargarDatos();
@@ -73,6 +74,25 @@ function Aviones() {
  //   setPaginas(arrPaginas);
  // }
   
+=======
+  useEffect(() => {
+    cargarAerolineas(); // Mantenemos esta llamada si es necesaria
+    Buscar(Pagina); // Eliminar esta línea para evitar la búsqueda automática
+  }, [modelo, Pagina]);
+
+  async function Buscar(_pagina) {
+    modalDialogService.BloquearPantalla(true);
+    const data = await avionesService.Buscar(modelo, _pagina);
+    modalDialogService.BloquearPantalla(false);
+    setItems(data);
+    const arrPaginas = [];
+    for (let i = 1; i <= Math.ceil(data.length / 10); i++) {
+      arrPaginas.push(i);
+    }
+    setPaginas(arrPaginas);
+  }
+
+>>>>>>> 88a23ae255bc0b09430b83d715728774c2e111fc
   async function cargarAerolineas() {
     const aerolineasData = await avionesService.ObtenerAerolineas();
     setAerolineas(aerolineasData);
@@ -105,8 +125,7 @@ function Aviones() {
 
   async function ActivarDesactivar(item) {
     modalDialogService.Confirm(
-      `¿Está seguro que quiere ${
-        item.Activo ? "desactivar" : "activar"
+      `¿Está seguro que quiere ${item.Activo ? "desactivar" : "activar"
       } el registro?`,
       undefined,
       undefined,
@@ -131,8 +150,7 @@ function Aviones() {
     await Buscar();
     Volver();
     modalDialogService.Alert(
-      `Registro ${
-        AccionABMC === "A" ? "agregado" : "modificado"
+      `Registro ${AccionABMC === "A" ? "agregado" : "modificado"
       } correctamente.`
     );
   }
