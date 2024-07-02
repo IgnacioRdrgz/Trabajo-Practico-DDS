@@ -7,6 +7,7 @@ export default function ReservasListado({ Items, Consultar, Modificar, ActivarDe
       <table className="table table-hover table-sm table-bordered table-striped text-center">
         <thead>
           <tr>
+            <th>Clase</th>
             <th>Vuelo</th>
             <th>Pasajero</th>
             <th>Fecha de Reserva</th>
@@ -16,6 +17,7 @@ export default function ReservasListado({ Items, Consultar, Modificar, ActivarDe
         <tbody>
           {Items && Items.map((Item) => (
             <tr key={Item.id}>
+              <td>{Item.clase}</td>
               <td>{Item.vuelo_id}</td>
               <td>{Item.pasajero_id}</td>
               <td>{Item.fecha_reserva}</td>

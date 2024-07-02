@@ -102,6 +102,18 @@ const Reserva = sequelize.define("reservas", {
     primaryKey: true,
     autoIncrement: true,
   },
+  clase: {
+    type: DataTypes.STRING(10),
+    allowNull: false,
+  },
+  vuelo_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  pasajero_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
   fecha_reserva: {
     type: DataTypes.DATEONLY,
     allowNull: false,
@@ -203,19 +215,19 @@ const Tripulacion = sequelize.define('Tripulacion', {
 
 
 
-// // Relaciones entre tablas
-Vuelo.belongsTo(Aerolinea); // Un vuelo pertenece a una aerolínea
-Vuelo.belongsTo(Avion); // Un vuelo utiliza un avión
-Vuelo.belongsTo(Aeropuerto, { as: 'aeropuerto_salida', foreignKey: 'aeropuerto_salida_id' });
-Vuelo.belongsTo(Aeropuerto, { as: 'aeropuerto_llegada', foreignKey: 'aeropuerto_llegada_id' });
+// // // Relaciones entre tablas
+// Vuelo.belongsTo(Aerolinea); // Un vuelo pertenece a una aerolínea
+// Vuelo.belongsTo(Avion); // Un vuelo utiliza un avión
+// Vuelo.belongsTo(Aeropuerto, { as: 'aeropuerto_salida', foreignKey: 'aeropuerto_salida_id' });
+// Vuelo.belongsTo(Aeropuerto, { as: 'aeropuerto_llegada', foreignKey: 'aeropuerto_llegada_id' });
 
-Reserva.belongsTo(Vuelo); // Una reserva pertenece a un vuelo
-Reserva.belongsTo(Pasajero); // Una reserva pertenece a un pasajero
+// Reserva.belongsTo(Vuelo); // Una reserva pertenece a un vuelo
+// Reserva.belongsTo(Pasajero); // Una reserva pertenece a un pasajero
 
 
-Tripulacion.belongsTo(Vuelo); // La tripulación trabaja en un vuelo
-Piloto.belongsTo(Avion); // El piloto vuela un avión
-//(Código de relaciones omitido por brevedad)
+// Tripulacion.belongsTo(Vuelo); // La tripulación trabaja en un vuelo
+// Piloto.belongsTo(Avion); // El piloto vuela un avión
+// //(Código de relaciones omitido por brevedad)
 
 // Exportar modelos y sequelize
 module.exports = {

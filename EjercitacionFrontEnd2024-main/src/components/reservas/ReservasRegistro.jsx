@@ -6,6 +6,7 @@ export default function ReservasRegistro({
   Item,
   Grabar,
   Volver,
+  pasajeros,
 }) {
   const {
     register,
@@ -16,6 +17,7 @@ export default function ReservasRegistro({
 
   useEffect(() => {
     if (Item) {
+      setValue("clase_id", Item.clase_id);
       setValue("vuelo_id", Item.vuelo_id);
       setValue("pasajero_id", Item.pasajero_id);
       setValue("fecha_reserva", Item.fecha_reserva);
@@ -59,28 +61,61 @@ export default function ReservasRegistro({
           <div className="row">
             <div className="col-sm-4 col-md-3 offset-md-1">
               <label className="col-form-label" htmlFor="pasajero_id">
-                Pasajero<span className="text-danger">*</span>:
+                Pasajeros<span className="text-danger"></span>:
+              </label>
+            </div>
+            <div className="col-sm-8 col-md-6">
+              <select
+                {...register("pasajero_id", {
+                  required: { value: true, message: "Pasajeros es requerido" },
+                })}
+                className={
+                  "form-control " +
+                  (errors?.pasajero_id ? "is-invalid" : "")
+                }
+              >
+                <option value="" key={1}></option>
+                {Array.isArray(pasajeros.Items) &&
+                  pasajeros.Items.map((pasajero) => (
+                    <option key={pasajero.id} value={pasajero.nombre}>
+                      {pasajero.nombre}
+                    </option>
+                  ))}
+              </select>
+
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-sm-4 col-md-3 offset-md-1">
+              <label className="col-form-label" htmlFor="clase">
+                clase<span className="text-danger">*</span>:
               </label>
             </div>
             <div className="col-sm-8 col-md-6">
               <input
-                type="number"
-                {...register("pasajero_id", {
+                type="text"
+                {...register("clase", {
                   required: { value: true, message: "Pasajero es requerido" },
-                  min: {
+                  minLength: {
                     value: 1,
-                    message: "Pasajero debe ser mayor a 0",
+                    message: "clase debe tener al menos 1 caracter",
                   },
+                
                 })}
                 className={
-                  "form-control " + (errors?.pasajero_id ? "is-invalid" : "")
+                  "form-control " + (errors?.clase ? "is-invalid" : "")
                 }
               />
               <div className="invalid-feedback">
-                {errors?.pasajero_id?.message}
+                {errors?.clase?.message}
               </div>
             </div>
           </div>
+
+
+
+
 
           <div className="row">
             <div className="col-sm-4 col-md-3 offset-md-1">

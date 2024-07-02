@@ -31,13 +31,7 @@ export default function PasajerosBuscar({ Nombre, setNombre, Buscar, Agregar }) 
             >
               <i className="fa fa-search"> </i> Buscar
             </button>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={() => Agregar()}  // Llamar a la función de agregar
-            >
-              <i className="fa fa-plus"> </i> Agregar
-            </button>
+            
           </div>
         </div>
       </div>

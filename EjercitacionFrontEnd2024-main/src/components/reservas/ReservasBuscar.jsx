@@ -1,19 +1,19 @@
 import React from "react";
 
-export default function ReservasBuscar({ id, setId, Buscar, Agregar }) {
+export default function ReservasBuscar({ clase, setId, Buscar, Agregar }) {
   return (
     <form>
       <div className="container-fluid">
         <div className="row">
           <div className="col-sm-4 col-md-2">
-            <label className="col-form-label">ID de Reserva:</label>
+            <label className="col-form-label">Clase :</label>
           </div>
           <div className="col-sm-8 col-md-4">
             <input
-              type="number"
+              type="text"
               className="form-control"
               onChange={(e) => setId(e.target.value)}
-              value={id}
+              value={clase}
               min="1"
             />
           </div>

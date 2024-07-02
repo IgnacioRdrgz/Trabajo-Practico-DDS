@@ -14,28 +14,44 @@ function Reservas() {
     L: "(Listado)",
   };
   const [AccionABMC, setAccionABMC] = useState("L");
-  const [id, setId] = useState("");
+  const [clase, setId] = useState("");
   const [Items, setItems] = useState([]);
   const [Item, setItem] = useState(null);
   const [Pagina, setPagina] = useState(1);
   const [Paginas, setPaginas] = useState([]);
+  const [pasajeros, setPasajeros] = useState([]);
+  const [PaginasTotal, setPaginasTotal] = useState(0);
+  const [RegistrosTotal, setRegistrosTotal] = useState(0);
 
   useEffect(() => {
+    cargarPasajeros();
     Buscar(Pagina);
-  }, [id, Pagina]);
+  }, [clase, Pagina]);
+
 
   async function Buscar(_pagina) {
     modalDialogService.BloquearPantalla(true);
-    const data = await reservasService.Buscar(id, _pagina);
-    modalDialogService.BloquearPantalla(false);
-    setItems(data);
-    const arrPaginas = [];
-    for (let i = 1; i <= Math.ceil(data.length / 10); i++) {
-      arrPaginas.push(i);
+    try {
+      console.log("Buscando clases de reservas:", clase);
+      const response = await reservasService.Buscar(clase);
+      console.log("Respuesta de búsqueda:", response);
+      const { Items, RegistrosTotal, PaginasTotal } = response;
+      setItems(Items);
+      console.log("Items actualizados:", Items);
+      setRegistrosTotal(RegistrosTotal);
+      setPaginasTotal(PaginasTotal);
+    } catch (error) {
+      console.error("Error al buscar reservas:", error);
+      modalDialogService.Alert("Error al buscar reservas. Por favor, inténtelo nuevamente.");
+    } finally {
+      modalDialogService.BloquearPantalla(false);
     }
-    setPaginas(arrPaginas);
   }
-
+  async function cargarPasajeros() {
+    const pasajerosData = await reservasService.ObtenerPasajeros();
+    console.log(pasajerosData);
+    setPasajeros(pasajerosData);
+  }
   async function BuscarPorId(item, accionABMC) {
     const data = await reservasService.BuscarPorId(item.id);
     setItem(data);
@@ -54,7 +70,8 @@ function Reservas() {
     setAccionABMC("A");
     setItem({
       id: 0,
-      vuelo_id: "",
+      clase: "",
+      vuelo_id: 0,
       pasajero_id: "",
       fecha_reserva: "",
     });
@@ -104,7 +121,7 @@ function Reservas() {
       </div>
 
       <ReservasBuscar
-        id={id}
+        clase={clase}
         setId={setId}
         Buscar={() => Buscar(1)}
         Agregar={Agregar}
@@ -133,6 +150,7 @@ function Reservas() {
           Item={Item}
           Grabar={Grabar}
           Volver={Volver}
+          pasajeros={pasajeros}
         />
       )}
     </div>
