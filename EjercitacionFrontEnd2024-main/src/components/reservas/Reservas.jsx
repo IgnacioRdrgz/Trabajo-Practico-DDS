@@ -4,6 +4,7 @@ import ReservasRegistro from "./ReservasRegistro";
 import ReservasBuscar from "./ReservasBuscar";
 import { reservasService } from "../../services/reservas.service";
 import modalDialogService from "../../services/modalDialog.service";
+import AuthService from "../../services/auth.service";
 
 function Reservas() {
   const TituloAccionABMC = {
@@ -22,6 +23,7 @@ function Reservas() {
   const [pasajeros, setPasajeros] = useState([]);
   const [PaginasTotal, setPaginasTotal] = useState(0);
   const [RegistrosTotal, setRegistrosTotal] = useState(0);
+  const usuarioLogueado = AuthService.getUsuarioLogueado();
 
   useEffect(() => {
     cargarPasajeros();
@@ -78,6 +80,7 @@ function Reservas() {
   }
 
   async function ActivarDesactivar(item) {
+    if (usuarioLogueado === "franco" || usuarioLogueado === "admin") {
     modalDialogService.Confirm(
       `¿Está seguro que quiere ${
         item.Activo ? "desactivar" : "activar"
@@ -90,9 +93,13 @@ function Reservas() {
         await Buscar();
       }
     );
+  } else {
+    modalDialogService.Alert("No tiene permisos para realizar esta acción.");
   }
+}
 
   async function Grabar(item) {
+    if (usuarioLogueado === "franco" || usuarioLogueado === "admin") {
     try {
       await reservasService.Grabar(item);
     } catch (error) {
@@ -108,7 +115,10 @@ function Reservas() {
         AccionABMC === "A" ? "agregado" : "modificado"
       } correctamente.`
     );
+  } else {
+    modalDialogService.Alert("No tiene permisos para realizar esta acción.");
   }
+}
 
   function Volver() {
     setAccionABMC("L");

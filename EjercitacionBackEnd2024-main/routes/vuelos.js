@@ -12,14 +12,12 @@ router.get("/api/vuelos", async function (req, res, next) {
         [Op.like]: "%" + req.query.destino + "%",
       };
     }
-    const pagina = req.query.pagina ?? 1;
-    const tamañoPagina = 10;
+    
     const { count, rows } = await db.Vuelo.findAndCountAll({
       attributes: ["id", "numero_vuelo", "destino", "idAeropuerto", "fecha_salida", "fecha_llegada"],
       order: [["destino", "ASC"]],
       where,
-      offset: (pagina - 1) * tamañoPagina,
-      limit: tamañoPagina,
+      
     });
     return res.json({ Items: rows, RegistrosTotal: count });
   } catch (error) {

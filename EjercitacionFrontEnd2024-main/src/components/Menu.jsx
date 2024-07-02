@@ -52,6 +52,8 @@ function Menu() {
               <NavLink className="nav-link" to="/vuelos">
                 Vuelos
                 </NavLink>
+              </li>
+            <li className="nav-item">
               <NavLink className="nav-link" to="/pasajeros">
                 Pasajeros
               </NavLink>
@@ -69,11 +71,6 @@ function Menu() {
             <li className="nav-item">
               <NavLink className="nav-link" to="/aerolineas">
                 Aerolineas
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/mi-componente">
-                Mi Componente
               </NavLink>
             </li>
             <li className="nav-item">

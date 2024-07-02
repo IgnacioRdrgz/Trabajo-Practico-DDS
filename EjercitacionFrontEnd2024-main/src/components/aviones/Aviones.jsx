@@ -4,6 +4,7 @@ import AvionesRegistro from "./AvionesRegistro";
 import AvionesBuscar from "./AvionesBuscar";
 import { avionesService } from "../../services/aviones.service";
 import modalDialogService from "../../services/modalDialog.service";
+import AuthService from "../../services/auth.service";
 
 function Aviones() {
   const TituloAccionABMC = {
@@ -24,6 +25,7 @@ function Aviones() {
   const [aerolineaSeleccionada, setAerolineaSeleccionada] = useState(null);
   const [PaginasTotal, setPaginasTotal] = useState(0);
   const [RegistrosTotal, setRegistrosTotal] = useState(0);
+  const usuarioLogueado = AuthService.getUsuarioLogueado();
  // useEffect(() => {
  //   cargarDatos();
  // }, [modelo, Pagina]);
@@ -104,6 +106,7 @@ function Aviones() {
   }
 
   async function ActivarDesactivar(item) {
+    if (usuarioLogueado === "matias" || usuarioLogueado === "admin") {
     modalDialogService.Confirm(
       `¿Está seguro que quiere ${item.Activo ? "desactivar" : "activar"
       } el registro?`,
@@ -115,9 +118,13 @@ function Aviones() {
         await Buscar();
       }
     );
+  } else {
+    modalDialogService.Alert("No tiene permisos para realizar esta acción.");
   }
+}
 
   async function Grabar(item) {
+    if (usuarioLogueado === "matias" || usuarioLogueado === "admin") {
     try {
       item.aerolinea = aerolineaSeleccionada;
       await avionesService.Grabar(item);
@@ -133,7 +140,10 @@ function Aviones() {
       `Registro ${AccionABMC === "A" ? "agregado" : "modificado"
       } correctamente.`
     );
+  } else {
+    modalDialogService.Alert("No tiene permisos para realizar esta acción.");
   }
+}
 
   function Volver() {
     setAccionABMC("L");

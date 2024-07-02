@@ -62,6 +62,9 @@ app.use(pilotosRouter);
 const tripulacionRouter = require("./routes/tripulacion");
 app.use(tripulacionRouter);
 
+const seguridadRouter = require("./routes/seguridad");
+app.use(seguridadRouter);
+
 // levantar servidor
 if (!module.parent) {   // si no es llamado por otro módulo, es decir, si es el módulo principal -> levantamos el servidor
     const port = process.env.PORT || 4000;   // en producción se usa el puerto de la variable de entorno PORT

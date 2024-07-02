@@ -39,10 +39,10 @@ import AuthService from "../../services/auth.service";
         <form className="p-5">
           <img
             className="mb-4"
-            src="https://getbootstrap.com/docs/5.2/assets/brand/bootstrap-logo.svg"
+            src="https://static.vecteezy.com/system/resources/previews/028/754/395/original/flight-insurance-3d-icon-illustrations-png.png"
             alt=""
-            width="72"
-            height="57"
+            width="150"
+            height="150"
           />
           <h1 className="h3 mb-3 fw-normal">Por favor ingrese</h1>
 
@@ -79,11 +79,7 @@ import AuthService from "../../services/auth.service";
           </div>
 
 
-          <div className="checkbox mb-3">
-            <label className="custom-control">
-              <input type="checkbox" value="remember-me" /> Recordarme
-            </label>
-          </div>
+          
           <button className="w-100 btn btn-lg btn-primary" type="button"  onClick={(e) => handleIngresar()}>
             Ingresar
           </button>

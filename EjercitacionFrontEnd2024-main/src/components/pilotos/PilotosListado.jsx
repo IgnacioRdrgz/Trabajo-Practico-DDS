@@ -9,7 +9,7 @@ export default function PilotosListado({ Items, Consultar, Modificar, ActivarDes
             <th>Nombre</th>
             <th>licencia</th>
             <th>Fecha de contratacion</th> {/* Agregar esta línea */}
-            <th>Acciones</th>
+            
 
           </tr>
         </thead>
@@ -21,29 +21,7 @@ export default function PilotosListado({ Items, Consultar, Modificar, ActivarDes
               <td>{Item.fecha_contratacion}</td> {/* Agregar esta línea */}
               
 
-              <td className="text-center">
-                <button
-                  className="btn btn-sm btn-outline-primary me-1"
-                  title="Consultar"
-                  onClick={() => Consultar(Item)}
-                >
-                  <i className="fa fa-eye"></i>
-                </button>
-                <button
-                  className="btn btn-sm btn-outline-primary me-1"
-                  title="Modificar"
-                  onClick={() => Modificar(Item)}
-                >
-                  <i className="fa fa-pencil"></i>
-                </button>
-                <button
-                  className="btn btn-sm btn-outline-danger me-1"
-                  title="Desactivar"
-                  onClick={() => ActivarDesactivar(Item)}
-                >
-                  <i className="fa fa-circle-down"></i>
-                </button>
-              </td>
+              
             </tr>
           ))}
         </tbody>

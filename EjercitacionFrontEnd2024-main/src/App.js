@@ -10,7 +10,7 @@ import { Tripulaciones } from "./components/tripulaciones/Tripulaciones";
 import { Pilotos } from "./components/pilotos/Pilotos";
 import { Aeropuertos } from "./components/aeropuertos/Aeropuertos";
 import { Vuelos } from "./components/vuelos/Vuelos";
-
+import { Login } from "./components/login/Login";
 
 
 import { Pasajeros } from "./components/pasajeros/Pasajeros";
@@ -27,10 +27,15 @@ function App() {
   <Route path="/inicio" element={<Inicio />} />
   <Route path="/aviones" element={<Aviones />} />
   <Route path="/aerolineas" element={<Aerolineas />} />
-  <Route path="*" element={<Navigate to="/inicio" replace />} />
   <Route path="/tripulaciones" element={<Tripulaciones/>} />
+  <Route path="/aeropuertos" element={<Aeropuertos/>} />
+  <Route path="/vuelos" element={<Vuelos/>} />
   <Route path="/pilotos" element={<Pilotos/>} />
+  <Route path="/pasajeros" element={<Pasajeros/>} />
+  <Route path="/reservas" element={<Reservas/>} />
+  <Route path="/login/:componentFrom" element={<Login />} />
 
+  <Route path="*" element={<Navigate to="/inicio" replace />} />
 </Routes>
         </div>
         <Footer />

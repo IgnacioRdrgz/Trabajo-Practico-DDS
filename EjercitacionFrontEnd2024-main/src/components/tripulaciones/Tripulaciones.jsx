@@ -4,6 +4,7 @@ import { tripulacionService } from "../../services/tripulacion.service";
 import TripulacionesBuscar from "./TripulacionesBuscar";
 import TripulacionesListado from "./TripulacionesListado";
 import TripulacionesRegistro from "./TripulacionesRegistro";
+import AuthService from "../../services/auth.service";
 
 function Tripulaciones() {
   const TituloAccionABMC = {
@@ -23,6 +24,7 @@ function Tripulaciones() {
   const [RegistrosTotal, setRegistrosTotal] = useState(0);
   const [pilotos, setPilotos] = useState([]);
   const [pilotoSeleccionada, setPilotoSeleccionada] = useState(null);
+  const usuarioLogueado = AuthService.getUsuarioLogueado();
 
 
 
@@ -84,6 +86,7 @@ function Tripulaciones() {
   }
 
   async function ActivarDesactivar(item) {
+    if (usuarioLogueado === "alvaro" || usuarioLogueado === "admin") {
     modalDialogService.Confirm(
       `¿Está seguro que quiere ${
         item.Activo ? "desactivar" : "activar"
@@ -102,9 +105,13 @@ function Tripulaciones() {
         }
       }
     );
+  } else {
+    modalDialogService.Alert("No tiene permisos para realizar esta acción.");
   }
+}
 
   async function Grabar(item) {
+    if (usuarioLogueado === "alvaro" || usuarioLogueado === "admin") {
     try {
       item.piloto = pilotoSeleccionada;
       await tripulacionService.Grabar(item);
@@ -122,7 +129,10 @@ function Tripulaciones() {
         error?.response?.data?.message ?? error.toString()
       );
     }
+  } else {
+    modalDialogService.Alert("No tiene permisos para realizar esta acción.");
   }
+}
 
   function Volver() {
     setAccionABMC("L");

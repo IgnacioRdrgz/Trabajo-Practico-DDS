@@ -7,6 +7,7 @@ import VuelosRegistro from "./VuelosRegistro";
 import { vuelosService } from "../../services/vuelos.service";
 import { aeropuertosService } from "../../services/aeropuertos.service";
 import modalDialogService from "../../services/modalDialog.service";
+import AuthService from "../../services/auth.service";
 //import { ModalDialog } from "./components/ModalDialog";
 //import { vuelosFamiliasMockService as vuelosFamiliasService } from "../../services/vuelosFamilias-mock.service";
 
@@ -28,8 +29,8 @@ function Vuelos() {
   const [RegistrosTotal, setRegistrosTotal] = useState(0);
   const [Pagina, setPagina] = useState(1);
   const [Paginas, setPaginas] = useState([]);
-
   const [Aeropuertos, setAeropuertos] = useState(null);
+  const usuarioLogueado = AuthService.getUsuarioLogueado();
 
   // cargar al "montar" el componente, solo la primera vez (por la dependencia [])
   useEffect(() => {
@@ -103,6 +104,7 @@ function Vuelos() {
 
 
   async function ActivarDesactivar(item) {
+    if (usuarioLogueado === "ignacio" || usuarioLogueado === "admin") {
     modalDialogService.Confirm(
       "Esta seguro que quiere " +
       (item.Activo ? "desactivar" : "activar") +
@@ -116,10 +118,14 @@ function Vuelos() {
       }
     );
 
+  } else {
+    modalDialogService.Alert("No tiene permisos para realizar esta acción.");
   }
+}
 
 
   async function Grabar(item) {
+    if (usuarioLogueado === "ignacio" || usuarioLogueado === "admin") {
     // agregar o modificar
     try {
       await vuelosService.Grabar(item);
@@ -138,7 +144,10 @@ function Vuelos() {
         " correctamente."
       );
     }, 0);
+  } else {
+    modalDialogService.Alert("No tiene permisos para realizar esta acción.");
   }
+}
 
 
   // Volver/Cancelar desde Agregar/Modificar/Consultar

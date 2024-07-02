@@ -8,8 +8,7 @@ const { Op, ValidationError } = require("sequelize");
 // GET: Obtener toda la tripulación con paginación y/o filtro por nombre
 router.get("/api/tripulacion", async (req, res) => {
   try {
-    const Pagina = req.query.Pagina ? parseInt(req.query.Pagina, 10) : 1;
-    const TamañoPagina = 10;
+    
 
     const whereClause = {};
     if (req.query.nombre) {
@@ -20,8 +19,7 @@ router.get("/api/tripulacion", async (req, res) => {
       attributes: ["id", "nombre", "rol", "fecha_contratacion", "idPiloto"],
       where: whereClause,
       order: [["nombre", "ASC"]],
-      offset: (Pagina - 1) * TamañoPagina,
-      limit: TamañoPagina,
+      
     });
 
     res.json({ Items: rows, RegistrosTotal: count });

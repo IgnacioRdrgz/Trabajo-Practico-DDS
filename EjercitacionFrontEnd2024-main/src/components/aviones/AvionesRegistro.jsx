@@ -145,7 +145,7 @@ export default function AvionesRegistro({
           <input
             type="date"
             {...register("fecha_fabricacion", {
-              required: { value: false, message: "Fecha de fabricación es requerida" },
+              required: { value: true, message: "Fecha de fabricación es requerida" },
             })}
             className={
               "form-control " + (errors?.fecha_fabricacion ? "is-invalid" : "")

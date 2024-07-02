@@ -209,9 +209,17 @@ async function CrearBaseSiNoExiste() {
       // Insertar datos básicos en la tabla Pilotos
       await db.run(
         `INSERT INTO Pilotos (nombre, licencia, fecha_contratacion)
-         VALUES ('John Doe', '123456', '2010-01-15'),
-                ('Jane Smith', '654321', '2015-05-20'),
-                ('Michael Brown', '987654', '2018-03-10');`
+         VALUES
+           ('John Doe', '123456', '2010-01-15'),
+           ('Jane Smith', '654321', '2015-05-20'),
+           ('Michael Brown', '987654', '2018-03-10'),
+           ('Sarah Johnson', '456789', '2012-09-25'),
+           ('Robert Davis', '987654', '2014-07-12'),
+           ('Emily Wilson', '321654', '2017-11-05'),
+           ('Daniel Martinez', '654987', '2019-06-18'),
+           ('David Thompson', '789456', '2013-04-08'),
+           ('Olivia Garcia', '456123', '2016-08-22'),
+           ('James Anderson', '321789', '2020-02-14');`
       );
       console.log("Datos insertados en la tabla Pilotos.");
     }
@@ -233,9 +241,19 @@ async function CrearBaseSiNoExiste() {
       // Insertar datos básicos en la tabla Tripulacion
       await db.run(
         `INSERT INTO Tripulacion (nombre, rol, fecha_contratacion,idPiloto)
-         VALUES ('Emily Davis', 'Azafata', '2012-07-01',1),
-                ('David Wilson', 'Piloto', '2014-09-15',2),
-                ('Sophia Martinez', 'Copiloto', '2017-11-20',3);`
+         VALUES 
+           ('Emily Davis', 'Azafata', '2012-07-01',1),
+           ('David Wilson', 'Piloto', '2014-09-15',2),
+           ('Sophia Martinez', 'Copiloto', '2017-11-20',3),
+           ('Oliver Johnson', 'Azafata', '2013-05-10',1),
+           ('Emma Anderson', 'Piloto', '2016-08-25',2),
+           ('Noah Thompson', 'Copiloto', '2019-10-30',3),
+           ('Ava Garcia', 'Azafata', '2015-03-05',1),
+           ('Liam Martinez', 'Piloto', '2018-06-12',2),
+           ('Isabella Smith', 'Copiloto', '2021-09-17',3),
+           ('Mia Johnson', 'Azafata', '2017-02-22',1),
+           ('Ethan Anderson', 'Piloto', '2020-05-29',2),
+           ('Sophia Thompson', 'Copiloto', '2023-08-03',3);`
       );
       console.log("Datos insertados en la tabla Tripulacion.");
     }

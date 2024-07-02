@@ -10,9 +10,24 @@ const users = [
     rol: "admin",
   },
   {
-    usuario: "juan",
+    usuario: "alvaro",
     clave: "123",
-    rol: "member",
+    rol: "member1",
+  },
+  {
+    usuario: "ignacio",
+    clave: "123",
+    rol: "member2",
+  },
+  {
+    usuario: "franco",
+    clave: "123",
+    rol: "member3",
+  },
+  {
+    usuario: "matias",
+    clave: "123",
+    rol: "member4",
   },
 ];
 let refreshTokens = [];
