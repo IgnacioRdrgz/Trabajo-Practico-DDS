@@ -72,22 +72,7 @@ export default function VuelosListado({ Items, Consultar, Modificar, ActivarDesa
           <div className="col">
             <span className="pyBadge">Registros: {RegistrosTotal}</span>
           </div>
-          <div className="col text-center">
-            Pagina: &nbsp;
-            <select
-              value={Pagina}
-              onChange={(e) => {
-                Buscar(e.target.value);
-              }}
-            >
-              {Paginas?.map((x) => (
-                <option value={x} key={x}>
-                  {x}
-                </option>
-              ))}
-            </select>
-            &nbsp; de {Paginas?.length}
-          </div>
+
 
 
         </div>

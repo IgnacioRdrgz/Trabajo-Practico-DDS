@@ -58,7 +58,7 @@ function Vuelos() {
 
     //generar array de las paginas para mostrar en select del paginador
     const arrPaginas = [];
-    for (let i = 1; i <= Math.ceil(data.RegistrosTotal / 10); i++) {
+    for (let i = 1; i <= Math.ceil(data.RegistrosTotal / 20); i++) {
       arrPaginas.push(i);
     }
     setPaginas(arrPaginas);
@@ -172,9 +172,9 @@ function Vuelos() {
           Modificar={Modificar}
           ActivarDesactivar={ActivarDesactivar}
 
-          Pagina={Pagina}
+
           RegistrosTotal={RegistrosTotal}
-          Paginas={Paginas}
+
           Buscar={Buscar}
           Aeropuertos={Aeropuertos} // Pasar Aeropuertos como prop al Listado
         />
