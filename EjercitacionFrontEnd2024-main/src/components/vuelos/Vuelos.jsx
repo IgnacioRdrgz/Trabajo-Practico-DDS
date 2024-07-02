@@ -49,7 +49,7 @@ function Vuelos() {
       _pagina = Pagina;
     }
     modalDialogService.BloquearPantalla(true);
-    const data = await vuelosService.Buscar(numero_vuelo, Activo, _pagina);
+    const data = await vuelosService.Buscar(numero_vuelo, _pagina);
     modalDialogService.BloquearPantalla(false);
 
     setItems(data.Items);
@@ -96,14 +96,11 @@ function Vuelos() {
       fecha_llegada: moment(new Date()).format("YYYY-MM-DD"),
 
     });
-    alert("preparando el Alta...");
+    modalDialogService.Alert("preparando el Alta...");
     console.log(Item);
   }
 
 
-  function Imprimir() {
-    alert("En desarrollo...");
-  }
 
   async function ActivarDesactivar(item) {
     modalDialogService.Confirm(
@@ -128,14 +125,14 @@ function Vuelos() {
       await vuelosService.Grabar(item);
     }
     catch (error) {
-      alert(error?.response?.data?.message ?? error.toString())
+      modalDialogService.Alert(error?.response?.data?.message ?? error.toString())
       return;
     }
     await Buscar();
     Volver();
 
     setTimeout(() => {
-      alert(
+      modalDialogService.Alert(
         "Registro " +
         (AccionABMC === "A" ? "agregado" : "modificado") +
         " correctamente."
@@ -166,20 +163,20 @@ function Vuelos() {
       }
 
 
+
       {/* Tabla de resutados de busqueda y Paginador */}
       {AccionABMC === "L" && Items?.length > 0 &&
         <VuelosListado
-          {...{
-            Items,
-            Consultar,
-            Modificar,
-            ActivarDesactivar,
-            Imprimir,
-            Pagina,
-            RegistrosTotal,
-            Paginas,
-            Buscar,
-          }}
+          Items={Items}
+          Consultar={Consultar}
+          Modificar={Modificar}
+          ActivarDesactivar={ActivarDesactivar}
+
+          Pagina={Pagina}
+          RegistrosTotal={RegistrosTotal}
+          Paginas={Paginas}
+          Buscar={Buscar}
+          Aeropuertos={Aeropuertos} // Pasar Aeropuertos como prop al Listado
         />
       }
 

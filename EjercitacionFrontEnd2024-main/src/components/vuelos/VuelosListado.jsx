@@ -3,11 +3,15 @@ import { NavLink } from "react-router-dom";
 
 
 export default function VuelosListado({ Items, Consultar, Modificar, ActivarDesactivar,
-  Imprimir,
+
   Pagina,
   RegistrosTotal,
   Paginas,
-  Buscar, }) {
+  Buscar, Aeropuertos }) {
+  const getNombreAeropuerto = (idAeropuerto) => {
+    const aeropuerto = Aeropuertos.find(a => a.idAeropuerto === idAeropuerto);
+    return aeropuerto ? aeropuerto.nombre : 'Aeropuerto desconocido';
+  }
   return (
     <div className="table-responsive">
       <table className="table table-hover table-sm table-bordered table-striped text-center">
@@ -28,7 +32,7 @@ export default function VuelosListado({ Items, Consultar, Modificar, ActivarDesa
               <td>{Item.destino}</td>
               <td>
                 <NavLink className="nav-link" to="/aeropuertos">
-                  {(Item.idAeropuerto)}{ }
+                  {getNombreAeropuerto(Item.idAeropuerto)}
                 </NavLink>
 
 
@@ -85,11 +89,7 @@ export default function VuelosListado({ Items, Consultar, Modificar, ActivarDesa
             &nbsp; de {Paginas?.length}
           </div>
 
-          <div className="col">
-            <button className="btn btn-primary float-end" onClick={() => Imprimir()}>
-              <i className="fa fa-print"></i>Imprimir
-            </button>
-          </div>
+
         </div>
       </div>
 

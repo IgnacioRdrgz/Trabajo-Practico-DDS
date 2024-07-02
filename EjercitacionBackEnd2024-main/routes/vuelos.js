@@ -50,7 +50,7 @@ router.post("/api/vuelos", async (req, res) => {
     const nuevoVuelo = await db.Vuelo.create({
       numero_vuelo: req.body.numero_vuelo,
       destino: req.body.destino,
-      IdAeropuerto: req.body.IdAeropuerto,
+      idAeropuerto: req.body.idAeropuerto,
       fecha_salida: req.body.fecha_salida,
       fecha_llegada: req.body.fecha_llegada,
     });
