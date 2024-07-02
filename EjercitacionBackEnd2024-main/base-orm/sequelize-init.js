@@ -16,6 +16,12 @@ const Vuelo = sequelize.define("vuelos", {
     type: DataTypes.STRING(100),
     allowNull: false,
   },
+  idAeropuerto: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+
+
+  },
   fecha_salida: {
     type: DataTypes.DATEONLY,
     allowNull: false,
@@ -29,7 +35,7 @@ const Vuelo = sequelize.define("vuelos", {
 });
 
 const Aeropuerto = sequelize.define("aeropuertos", {
-  id: {
+  idAeropuerto: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
@@ -44,6 +50,10 @@ const Aeropuerto = sequelize.define("aeropuertos", {
   },
   pais: {
     type: DataTypes.STRING(100),
+    allowNull: false,
+  },
+  fecha_inauguracion: {
+    type: DataTypes.DATEONLY,
     allowNull: false,
   },
 }, {
@@ -183,16 +193,15 @@ const Tripulacion = sequelize.define('Tripulacion', {
 });
 
 // Relaciones entre tablas
-Vuelo.belongsTo(Aerolinea); // Un vuelo pertenece a una aerolínea
-Vuelo.belongsTo(Avion); // Un vuelo utiliza un avión
-Vuelo.belongsTo(Aeropuerto, { as: 'aeropuerto_salida', foreignKey: 'aeropuerto_salida_id' });
-Vuelo.belongsTo(Aeropuerto, { as: 'aeropuerto_llegada', foreignKey: 'aeropuerto_llegada_id' });
+//Vuelo.belongsTo(Aerolinea); // Un vuelo pertenece a una aerolínea
+//Vuelo.belongsTo(Avion); // Un vuelo utiliza un avión
+//Vuelo.belongsTo(Aeropuerto, { as: 'AeropuertoLlegada', foreignKey: 'aeropuerto_llegada' });
+//Vuelo.belongsTo(Aeropuerto, { as: 'AeropuertoSalida', foreignKey: 'aeropuerto_salida' });
+//Reserva.belongsTo(Vuelo); // Una reserva pertenece a un vuelo
+//Reserva.belongsTo(Pasajero); // Una reserva pertenece a un pasajero
 
-Reserva.belongsTo(Vuelo); // Una reserva pertenece a un vuelo
-Reserva.belongsTo(Pasajero); // Una reserva pertenece a un pasajero
-
-Tripulacion.belongsTo(Vuelo); // La tripulación trabaja en un vuelo
-Piloto.belongsTo(Avion); // El piloto vuela un avión
+//Tripulacion.belongsTo(Vuelo); // La tripulación trabaja en un vuelo
+//Piloto.belongsTo(Avion); // El piloto vuela un avión
 // (Código de relaciones omitido por brevedad)
 
 // Exportar modelos y sequelize

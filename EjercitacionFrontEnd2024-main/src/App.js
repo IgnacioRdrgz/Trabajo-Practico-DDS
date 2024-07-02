@@ -7,6 +7,8 @@ import { Footer } from "./components/Footer";
 import { ModalDialog } from "./components/ModalDialog";
 import { Aviones } from "./components/aviones/Aviones";
 import { Aerolineas } from "./components/aerolineas/Aerolineas";
+import { Aeropuertos } from "./components/aeropuertos/Aeropuertos";
+import { Vuelos } from "./components/vuelos/Vuelos";
 
 
 
@@ -18,12 +20,14 @@ function App() {
         <ModalDialog />
         <Menu />
         <div className="divBody">
-<Routes>
-  <Route path="/inicio" element={<Inicio />} />
-  <Route path="/aviones" element={<Aviones />} />
-  <Route path="/aerolineas" element={<Aerolineas />} />
-  <Route path="*" element={<Navigate to="/inicio" replace />} />
-</Routes>
+          <Routes>
+            <Route path="/inicio" element={<Inicio />} />
+            <Route path="/aviones" element={<Aviones />} />
+            <Route path="/aerolineas" element={<Aerolineas />} />
+            <Route path="/aeropuertos" element={<Aeropuertos />} />
+            <Route path="/vuelos" element={<Vuelos />} />
+            <Route path="*" element={<Navigate to="/inicio" replace />} />
+          </Routes>
         </div>
         <Footer />
       </BrowserRouter>
