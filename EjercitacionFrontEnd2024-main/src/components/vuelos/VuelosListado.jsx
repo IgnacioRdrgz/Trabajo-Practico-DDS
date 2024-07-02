@@ -28,8 +28,9 @@ export default function VuelosListado({ Items, Consultar, Modificar, ActivarDesa
               <td>{Item.destino}</td>
               <td>
                 <NavLink className="nav-link" to="/aeropuertos">
-                  {(Item.idAeropuerto)}
+                  {(Item.idAeropuerto)}{ }
                 </NavLink>
+
 
               </td>
               <td>{Item.fecha_salida}</td> {/* Agregar esta línea */}

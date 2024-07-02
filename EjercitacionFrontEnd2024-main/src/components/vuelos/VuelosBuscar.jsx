@@ -6,7 +6,7 @@ export default function VuelosBuscar({ numero_vuelo, setnumero_vuelo, Buscar, Ag
       <div className="container-fluid">
         <div className="row">
           <div className="col-sm-4 col-md-2">
-            <label className="col-form-label">Destino:</label>
+            <label className="col-form-label">Numero de Vuelo:</label>
           </div>
           <div className="col-sm-8 col-md-4">
             <input

@@ -22,7 +22,7 @@ function Aeropuertos() {
 
         console.error('La respuesta no es un arreglo:', data);
 
-        setAeropuertos([1, 2, 3]); // Asignar un arreglo vacío en caso de error
+        setAeropuertos([]); // Asignar un arreglo vacío en caso de error
       }
     } catch (error) {
       console.error('Error al buscar aeropuertos:', error);
@@ -38,8 +38,9 @@ function Aeropuertos() {
           <tr>
             <th style={{ width: "10%" }}>Id</th>
             <th style={{ width: "30%" }}>Nombre</th>
-            <th style={{ width: "30%" }}>Ciudad</th>
-            <th style={{ width: "30%" }}>Pais</th>
+            <th style={{ width: "25%" }}>Ciudad</th>
+            <th style={{ width: "20%" }}>Pais</th>
+            <th style={{ width: "35%" }}>Fecha Inaugiracion</th>
           </tr>
         </thead>
         <tbody>
@@ -50,6 +51,7 @@ function Aeropuertos() {
                 <td>{aeropuerto.nombre}</td>
                 <td>{aeropuerto.ciudad}</td>
                 <td>{aeropuerto.pais}</td>
+                <td>{aeropuerto.fecha_inauguracion}</td>
               </tr>
             ))
           ) : (

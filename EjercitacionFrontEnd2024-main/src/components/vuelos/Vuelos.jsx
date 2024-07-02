@@ -77,11 +77,11 @@ function Vuelos() {
     BuscarPorId(item, "C"); // paso la accionABMC pq es asincrono la busqueda y luego de ejecutarse quiero cambiar el estado accionABMC
   }
   function Modificar(item) {
-    if (!item.Activo) {
-      modalDialogService.Alert("No puede modificarse un registro Inactivo.");
+    // if (!item.Activo) {
+    //      modalDialogService.Alert("No puede modificarse un registro Inactivo.");
 
-      return;
-    }
+    //   return;
+    // }
     BuscarPorId(item, "M"); // paso la accionABMC pq es asincrono la busqueda y luego de ejecutarse quiero cambiar el estado accionABMC
   }
 

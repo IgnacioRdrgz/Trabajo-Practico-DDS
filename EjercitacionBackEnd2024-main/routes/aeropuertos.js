@@ -5,7 +5,7 @@ const db = require("../base-orm/sequelize-init");
 
 router.get("/api/aeropuertos", async function (req, res, next) {
   let data = await db.Aeropuerto.findAll({
-    attributes: ["idAeropuerto", "nombre", "ciudad", "pais"],
+    attributes: ["idAeropuerto", "nombre", "ciudad", "pais", "fecha_inauguracion"],
   });
   res.json(data);
 });
@@ -16,7 +16,7 @@ router.get("/api/aeropuertos/:id", async function (req, res, next) {
   // #swagger.summary = 'obtiene un ArticuloFamilia'
   // #swagger.parameters['id'] = { description: 'identificador del ArticulosFamilias...' }
   let data = await db.Aeropuerto.findAll({
-    attributes: ["idAeropuerto", "nombre", "ciudad", "pais"],
+    attributes: ["idAeropuerto", "nombre", "ciudad", "pais", "fecha_inauguracion"],
     where: { idAeropuerto: req.params.id },
   });
   if (data.length > 0) res.json(data[0]);

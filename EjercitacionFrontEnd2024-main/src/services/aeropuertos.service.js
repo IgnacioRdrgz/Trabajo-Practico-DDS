@@ -4,7 +4,7 @@ import { config } from "../config";
 
 
 
-const urlResource = "http://localhost:4000/api/aeropuertos"
+const urlResource = config.urlResourceAeropuertos;
 async function Buscar() {
   const resp = await axios.get(urlResource);
   return resp.data;

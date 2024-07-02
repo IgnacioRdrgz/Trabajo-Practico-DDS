@@ -19,13 +19,7 @@ const Vuelo = sequelize.define("vuelos", {
   idAeropuerto: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    validate: {
-      notNull: {
-        args: true,
-        msg:
-          "IdAeropuertos es requerido",
-      }
-    }
+
 
   },
   fecha_salida: {
@@ -56,6 +50,10 @@ const Aeropuerto = sequelize.define("aeropuertos", {
   },
   pais: {
     type: DataTypes.STRING(100),
+    allowNull: false,
+  },
+  fecha_inauguracion: {
+    type: DataTypes.DATEONLY,
     allowNull: false,
   },
 }, {

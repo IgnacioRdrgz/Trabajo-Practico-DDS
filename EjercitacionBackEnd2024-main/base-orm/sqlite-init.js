@@ -50,24 +50,25 @@ async function CrearBaseSiNoExiste() {
            idAeropuerto INTEGER PRIMARY KEY AUTOINCREMENT,
            nombre TEXT NOT NULL,
            ciudad TEXT NOT NULL,
-           pais TEXT NOT NULL
+           pais TEXT NOT NULL,
+           fecha_inauguracion TEXT NOT NULL
          );`
       );
       console.log("Tabla Aeropuertos creada.");
 
       // Insertar datos básicos en la tabla Aeropuertos
       await db.run(
-        `INSERT INTO Aeropuertos (idAeropuerto, nombre, ciudad, pais)
-         VALUES (1 , 'JFK International Airport', 'New York', 'USA'),
-                (2 , 'Charles de Gaulle Airport', 'Paris', 'France'),
-                (3 , 'Narita International Airport', 'Tokyo', 'Japan'),
-                (4 , 'Heathrow Airport', 'London', 'United Kingdom'),
-                (5 , 'Los Angeles International Airport', 'Los Angeles', 'USA'),
-                (6 , 'Haneda Airport', 'Tokyo', 'Japan'),
-                (7 , 'Changi Airport', 'Singapore', 'Singapore'),
-                (8 , 'Dubai International Airport', 'Dubai', 'United Arab Emirates'),
-                (9 , 'Frankfurt Airport', 'Frankfurt', 'Germany'),
-                (10, 'Sydney Airport', 'Sydney', 'Australia');`
+        `INSERT INTO Aeropuertos
+         VALUES (1 , 'JFK International Airport', 'New York', 'USA', '1990-07-09'),
+                (2 , 'Charles de Gaulle Airport', 'Paris', 'France','1990-07-09'),
+                (3 , 'Narita International Airport', 'Tokyo', 'Japan','1990-07-09'),
+                (4 , 'Heathrow Airport', 'London', 'United Kingdom','1990-07-09'),
+                (5 , 'Los Angeles International Airport', 'Los Angeles', 'USA','1990-07-09'),
+                (6 , 'Haneda Airport', 'Tokyo', 'Japan','1990-07-09'),
+                (7 , 'Changi Airport', 'Singapore', 'Singapore','1990-07-09'),
+                (8 , 'Dubai International Airport', 'Dubai', 'United Arab Emirates', '1990-07-09'),
+                (9 , 'Frankfurt Airport', 'Frankfurt', 'Germany','1990-07-09'),
+                (10, 'Sydney Airport', 'Sydney', 'Australia','1990-07-09');`
       );
       console.log("Datos insertados en la tabla Aeropuertos.");
     }
