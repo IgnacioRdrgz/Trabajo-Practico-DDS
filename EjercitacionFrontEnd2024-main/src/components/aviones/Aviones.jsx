@@ -13,31 +13,65 @@ function Aviones() {
     C: "(Consultar)",
     L: "(Listado)",
   };
+  
   const [AccionABMC, setAccionABMC] = useState("L");
   const [modelo, setModelo] = useState("");
   const [Items, setItems] = useState([]);
-  const [Item, setItem] = useState(null); // usado en BuscarporId (Modificar, Consultar)
+  const [Item, setItem] = useState(null);
   const [Pagina, setPagina] = useState(1);
   const [Paginas, setPaginas] = useState([]);
   const [aerolineas, setAerolineas] = useState([]);
   const [aerolineaSeleccionada, setAerolineaSeleccionada] = useState(null);
+  const [PaginasTotal, setPaginasTotal] = useState(0);
+  const [RegistrosTotal, setRegistrosTotal] = useState(0);
+ // useEffect(() => {
+ //   cargarDatos();
+ // }, [modelo, Pagina]);
 
-  useEffect(() => {
-    cargarAerolineas(); // Mantenemos esta llamada si es necesaria
-    Buscar(Pagina); // Eliminar esta línea para evitar la búsqueda automática
-  }, [modelo, Pagina]);
+ useEffect(() => {
+  console.log("Ejecutando useEffect con Pagina:", Pagina);
+  cargarDatos();
+  Buscar(1);
+}, [Pagina]);
+
+
+  async function cargarDatos() {
+    await cargarAerolineas();
+    await Buscar(Pagina);
+  }
+
   
+
   async function Buscar(_pagina) {
     modalDialogService.BloquearPantalla(true);
-    const data = await avionesService.Buscar(modelo, _pagina);
-    modalDialogService.BloquearPantalla(false);
-    setItems(data);
-    const arrPaginas = [];
-    for (let i = 1; i <= Math.ceil(data.length / 10); i++) {
-      arrPaginas.push(i);
+    try {
+      console.log("Buscando aviones con país de origen:", modelo);
+      const response = await avionesService.Buscar(modelo);
+      console.log("Respuesta de búsqueda:", response);
+      const { Items, RegistrosTotal, PaginasTotal } = response;
+      setItems(Items);
+      console.log("Items actualizados:", Items);
+      setRegistrosTotal(RegistrosTotal);
+      setPaginasTotal(PaginasTotal);
+    } catch (error) {
+      console.error("Error al buscar aviones:", error);
+      modalDialogService.Alert("Error al buscar aviones. Por favor, inténtelo nuevamente.");
+    } finally {
+      modalDialogService.BloquearPantalla(false);
     }
-    setPaginas(arrPaginas);
   }
+
+ // async function buscarAviones(_pagina) {
+ //   modalDialogService.BloquearPantalla(true);
+  //  const data = await avionesService.Buscar(modelo, _pagina);
+  //  modalDialogService.BloquearPantalla(false);
+  //  setItems(data);
+  //  const arrPaginas = [];
+  //  for (let i = 1; i <= Math.ceil(data.length / 10); i++) {
+  //    arrPaginas.push(i);
+  //  }
+ //   setPaginas(arrPaginas);
+ // }
   
   async function cargarAerolineas() {
     const aerolineasData = await avionesService.ObtenerAerolineas();
@@ -71,8 +105,7 @@ function Aviones() {
 
   async function ActivarDesactivar(item) {
     modalDialogService.Confirm(
-      `¿Está seguro que quiere ${
-        item.Activo ? "desactivar" : "activar"
+      `¿Está seguro que quiere ${item.Activo ? "desactivar" : "activar"
       } el registro?`,
       undefined,
       undefined,
@@ -97,8 +130,7 @@ function Aviones() {
     await Buscar();
     Volver();
     modalDialogService.Alert(
-      `Registro ${
-        AccionABMC === "A" ? "agregado" : "modificado"
+      `Registro ${AccionABMC === "A" ? "agregado" : "modificado"
       } correctamente.`
     );
   }
@@ -148,6 +180,10 @@ function Aviones() {
           setAerolineaSeleccionada={setAerolineaSeleccionada}
         />
       )}
+
+
+          {/* Mostrar total de registros */}
+          <div className="mt-3">Total de registros: {RegistrosTotal}</div>
     </div>
   );
 }

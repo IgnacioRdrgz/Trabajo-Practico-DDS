@@ -12,6 +12,8 @@ const urlResourceAerolineas = urlServidor + "/api/aerolineas";
 const urlResourceTripulacion = urlServidor + "/api/tripulacion"
 const urlResourcePiloto = urlServidor + "/api/pilotos"
 
+const urlResourceAeropuertos = "http://localhost:4000/api/aeropuertos";
+const urlResourceVuelos = urlServidor + "/api/vuelos";
 
 export const config = {
     urlServidor,
@@ -19,4 +21,6 @@ export const config = {
     urlResourceAerolineas,
     urlResourceTripulacion,
     urlResourcePiloto,
+    urlResourceAeropuertos,
+    urlResourceVuelos
 }

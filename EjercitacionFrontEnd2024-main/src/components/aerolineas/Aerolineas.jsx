@@ -154,21 +154,6 @@ function Aerolineas() {
         />
       )}
 
-      {/* Mostrar paginación solo si hay más de una página */}
-      {PaginasTotal > 1 && (
-        <nav aria-label="Page navigation example">
-          <ul className="pagination">
-            {Array.from({ length: PaginasTotal }, (_, index) => (
-              <li className={`page-item ${index + 1 === Pagina ? 'active' : ''}`} key={index}>
-                <button className="page-link" onClick={() => setPagina(index + 1)}>
-                  {index + 1}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
-
       {/* Mostrar total de registros */}
       <div className="mt-3">Total de registros: {RegistrosTotal}</div>
     </div>

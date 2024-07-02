@@ -8,6 +8,8 @@ import { Aerolineas } from "./components/aerolineas/Aerolineas";
 import { Aviones } from "./components/aviones/Aviones";
 import { Tripulaciones } from "./components/tripulaciones/Tripulaciones";
 import { Pilotos } from "./components/pilotos/Pilotos";
+import { Aeropuertos } from "./components/aeropuertos/Aeropuertos";
+import { Vuelos } from "./components/vuelos/Vuelos";
 
 
 

@@ -23,7 +23,7 @@ function Menu() {
       <div className="container-fluid">
         <a className="navbar-brand" href="#!">
           <i className="fa fa-paper-plane"></i>
-          &nbsp;<i>Reserva Vuelos</i>
+          &nbsp;<i>Gestión Aérea</i>
         </a>
         <button
           className="navbar-toggler"
@@ -44,6 +44,16 @@ function Menu() {
             <li className="nav-item">
               <NavLink className="nav-link" to="/inicio">
                 Inicio
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/aeropuertos">
+                Aeropuertos
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/vuelos">
+                Vuelos
               </NavLink>
             </li>
             <li className="nav-item">
